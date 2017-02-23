@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FacebookLogin from 'react-facebook-login';
+import {APP_ID} from '../keys';
 
 const responseFacebook = (response) => {
   console.log(response);
@@ -16,7 +17,7 @@ class Home extends React.Component {
       <div>
         <h1>Welcome to Reeltalk!</h1>
         <FacebookLogin
-          appId="askandrew"
+          appId={APP_ID}
           autoLoad={true}
           fields="name,email,picture"
           callback={responseFacebook} />
