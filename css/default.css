@@ -1,0 +1,16 @@
+.fb-login {
+  cursor: pointer;
+  color: #fff;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+  font-family: Gill Sans,Helvetica,sans-serif;
+  transition: background-color .3s,border-color .3s;
+  background-color: #4c69ba;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+}
+.fb-login:hover {
+  background-color: #5d7cd2;
+}

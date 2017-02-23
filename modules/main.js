@@ -20,6 +20,8 @@ class Home extends React.Component {
           appId={APP_ID}
           autoLoad={true}
           fields="name,email,picture"
+          cssClass="fb-login"
+          textButton="Sign in with Facebook"
           callback={responseFacebook} />
       </div>
     );
