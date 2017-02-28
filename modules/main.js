@@ -1,47 +1,93 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FacebookLogin from 'react-facebook-login';
+// import FacebookLogin from 'react-facebook-login';
+import {FacebookLogin} from '../mixins/FacebookLogin.js';
 import {APP_ID} from '../keys';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      accessToken: null,
-      email: null,
-      expiresIn: null,
-      id: null,
-      name: null,
-      picture: null,
-      signedRequest: null,
-      userID: null,
+      name: 'Mama Jude'
     }
+  };
+
+  componentDidMount() {
+    window.fbAsyncInit = function() {
+        FB.init({
+          appId      : APP_ID,
+          cookie     : true,  // enable cookies to allow the server to access
+                            // the session
+          xfbml      : true,  // parse social plugins on this page
+          version    : 'v2.8' // use version 2.1
+        });
+
+        FB.getLoginStatus(function(response) {
+          this.statusChangeCallback(response);
+        }.bind(this));
+      }.bind(this);
+    this.loadSdkAsynchronously();
+  };
+
+  loadSdkAsynchronously() {
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  };
+
+  statusChangeCallback(response) {
+    if (response.status === 'connected') {
+      this.fetchUser(response.authResponse);
+    }
+    this.setState({
+      response: response
+    })
   };
 
   responseFacebook(response) {
     console.log(response);
     this.setState({
-      accessToken: response.accessToken,
-      email: response.email,
-      expiresIn: response.expiresIn,
-      id: response.id,
+      loggedIn: true,
+      // accessToken: response.accessToken,
+      // email: response.email,
+      // expiresIn: response.expiresIn,
+      // id: response.id,
       name: response.name,
-      picture: response.picture,
-      signedRequest: response.signedRequest,
-      userID: response.userID,
+      // picture: response.picture,
+      // signedRequest: response.signedRequest,
+      // userID: response.userID,
     });
   };
 
+  fetchUser(authResponse) {
+    window.FB.api('/me', { fields: 'name,email,picture' }, (me) => {
+      Object.assign(me, authResponse);
+      console.log(me);
+    });
+  };
+
+  checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      this.statusChangeCallback(response);
+    }.bind(this));
+  };
+
+  handleClick() {
+    FB.login(this.checkLoginState());
+  };
+
   render() {
-    if (this.state.name) {
-      return (
-        <div>
+    return (
+      <div>
+        <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
+        {this.state.name}
+        {/* { this.state.loggedIn ? (
           <h1>Welcome to Reeltalk, {this.state.name}!</h1>
-        </div>
-      );
-    } else {
-      return (
-        <div>
+        ) : (
           <FacebookLogin
             appId={APP_ID}
             autoLoad={true}
@@ -49,9 +95,9 @@ class Home extends React.Component {
             cssClass="fb-login"
             textButton="Sign in with Facebook"
             callback={this.responseFacebook.bind(this)} />
-        </div>
-      );
-    }
+        )} */}
+      </div>
+    );
   }
 }
 
