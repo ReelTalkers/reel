@@ -8,11 +8,12 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Mama Jude'
+      name: '',
+      responseStatus: null,
     }
   };
 
-  componentDidMount() {
+  componentWillMount() {
     window.fbAsyncInit = function() {
         FB.init({
           appId      : APP_ID,
@@ -40,12 +41,12 @@ class Home extends React.Component {
   };
 
   statusChangeCallback(response) {
+    this.state = {
+      responseStatus: response.status
+    }
     if (response.status === 'connected') {
       this.fetchUser(response.authResponse);
     }
-    this.setState({
-      response: response
-    })
   };
 
   responseFacebook(response) {
@@ -66,7 +67,7 @@ class Home extends React.Component {
   fetchUser(authResponse) {
     window.FB.api('/me', { fields: 'name,email,picture' }, (me) => {
       Object.assign(me, authResponse);
-      console.log(me);
+      this.responseFacebook(me);
     });
   };
 
@@ -81,10 +82,22 @@ class Home extends React.Component {
   };
 
   render() {
+    if ( !this.state.responseStatus ) {
+      return (
+        <div>
+        </div>
+      );
+    } else {
+
+    }
     return (
       <div>
-        <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
-        {this.state.name}
+        { this.state.responseStatus == "connected"? (
+            "Welcome to Reeltalk, "+this.state.name+"!"
+          ) : (
+            <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
+          )
+        }
         {/* { this.state.loggedIn ? (
           <h1>Welcome to Reeltalk, {this.state.name}!</h1>
         ) : (
