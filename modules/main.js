@@ -46,6 +46,8 @@ class Home extends React.Component {
     }
     if (response.status === 'connected') {
       this.fetchUser(response.authResponse);
+    } else if (response.status) {
+      this.setState({});
     }
   };
 
