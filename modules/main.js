@@ -8,7 +8,6 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       responseStatus: null,
     }
   };
@@ -17,10 +16,9 @@ class Home extends React.Component {
     window.fbAsyncInit = function() {
         FB.init({
           appId      : APP_ID,
-          cookie     : true,  // enable cookies to allow the server to access
-                            // the session
+          cookie     : true,
           xfbml      : true,  // parse social plugins on this page
-          version    : 'v2.8' // use version 2.1
+          version    : 'v2.8' // use version 2.8
         });
 
         FB.getLoginStatus(function(response) {
@@ -41,35 +39,42 @@ class Home extends React.Component {
   };
 
   statusChangeCallback(response) {
+    // We don't immidietly call setState because if the user is logged in
+    // then we want to get their info before we re-render. Otherwise we may
+    // see results load and then info fill in
     this.state = {
       responseStatus: response.status
     }
     if (response.status === 'connected') {
+      // if the user is logged in then fetch data about them
       this.fetchUser(response.authResponse);
     } else if (response.status) {
+      // if the user is not logged in then we don't fetch any data on them
       this.setState({});
     }
-  };
-
-  responseFacebook(response) {
-    console.log(response);
-    this.setState({
-      loggedIn: true,
-      // accessToken: response.accessToken,
-      // email: response.email,
-      // expiresIn: response.expiresIn,
-      // id: response.id,
-      name: response.name,
-      // picture: response.picture,
-      // signedRequest: response.signedRequest,
-      // userID: response.userID,
-    });
   };
 
   fetchUser(authResponse) {
     window.FB.api('/me', { fields: 'name,email,picture' }, (me) => {
       Object.assign(me, authResponse);
       this.responseFacebook(me);
+    });
+  };
+
+  responseFacebook(response) {
+    console.log(response);
+    // We will just store everything in the state for now until we decide what
+    // we want to use
+    this.setState({
+      loggedIn: true,
+      accessToken: response.accessToken,
+      email: response.email,
+      expiresIn: response.expiresIn,
+      id: response.id,
+      name: response.name,
+      picture: response.picture,
+      signedRequest: response.signedRequest,
+      userID: response.userID,
     });
   };
 
@@ -84,35 +89,26 @@ class Home extends React.Component {
   };
 
   render() {
+    // If we haven't got a response from facebook yet, show nothing
     if ( !this.state.responseStatus ) {
       return (
         <div>
         </div>
       );
     } else {
-
+      // once we have a response, show the main page if they are logged in, or
+      // the login page if they are not
+      return (
+        <div>
+          { this.state.responseStatus == "connected"? (
+              "Welcome to Reeltalk, "+this.state.name+"!"
+            ) : (
+              <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
+            )
+          }
+        </div>
+      );
     }
-    return (
-      <div>
-        { this.state.responseStatus == "connected"? (
-            "Welcome to Reeltalk, "+this.state.name+"!"
-          ) : (
-            <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
-          )
-        }
-        {/* { this.state.loggedIn ? (
-          <h1>Welcome to Reeltalk, {this.state.name}!</h1>
-        ) : (
-          <FacebookLogin
-            appId={APP_ID}
-            autoLoad={true}
-            fields="name,email,picture"
-            cssClass="fb-login"
-            textButton="Sign in with Facebook"
-            callback={this.responseFacebook.bind(this)} />
-        )} */}
-      </div>
-    );
   }
 }
 
