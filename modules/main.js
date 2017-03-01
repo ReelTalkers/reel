@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import FacebookLogin from 'react-facebook-login';
-import {FacebookLogin} from '../mixins/FacebookLogin.js';
 import {APP_ID} from '../keys';
 
 class Home extends React.Component {
