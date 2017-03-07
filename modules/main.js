@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {APP_ID} from '../keys';
+import Home from './home.js';
 
-class Home extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
