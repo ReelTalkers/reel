@@ -24,7 +24,7 @@ class Home extends React.Component {
         });
 
         FB.getLoginStatus(function(response) {
-          this.checkLoginAfterRefresh(response);
+          this.checkLoginState(response);
         }.bind(this));
       }.bind(this);
     this.loadSdkAsynchronously();
@@ -47,19 +47,16 @@ class Home extends React.Component {
     this.state = {
       responseStatus: response.status
     };
-    console.log(response);
     if (response.status === 'connected') {
       // if the user is logged in then fetch data about them
       this.fetchUser(response.authResponse);
     } else if (response.status) {
-      console.log("something");
       // if the user is not logged in then we don't fetch any data on them
       this.setState({});
     }
   };
 
   fetchUser(authResponse) {
-    console.log("fetchUser");
     window.FB.api('/me', { fields: 'name,email,picture' }, (me) => {
       Object.assign(me, authResponse);
       this.responseFacebook(me);
@@ -70,52 +67,31 @@ class Home extends React.Component {
     console.log(response);
     // We will just store everything in the state for now until we decide what
     // we want to use
-    // this.setState({
-    //   loggedIn: true,
-    //   accessToken: response.accessToken,
-    //   email: response.email,
-    //   expiresIn: response.expiresIn,
-    //   id: response.id,
-    //   name: response.name,
-    //   picture: response.picture,
-    //   signedRequest: response.signedRequest,
-    //   userID: response.userID,
-    // });
-  };
-
-  checkLoginAfterRefresh(response) {
-    console.log("checkLoginAfterRefresh");
-    console.log(response);
-    if (response.status === 'connected') {
-      this.checkLoginState(response);
-    } else {
-      this.setState({
-        responseStatus: response.status
-      });
-    }
+    this.setState({
+      loggedIn: true,
+      accessToken: response.accessToken,
+      email: response.email,
+      expiresIn: response.expiresIn,
+      id: response.id,
+      name: response.name,
+      picture: response.picture,
+      signedRequest: response.signedRequest,
+      userID: response.userID,
+    });
   };
 
   checkLoginState(response) {
-    console.log("checkLoginState");
-    // FB.getLoginStatus(function(response) {
-    //   this.statusChangeCallback(response);
-    // }.bind(this));
-
-    if (response.authResponse) {
-      this.fetchUser(response.authResponse);
-    } else {
-      if (this.props.callback) {
-        this.responseFacebook({ status: response.status });
-      }
-    }
+    FB.getLoginStatus(function(response) {
+      this.statusChangeCallback(response);
+    }.bind(this));
   };
 
   handleLogin() {
-    FB.login((response) => console.log('asdfasdfasdf'), {scope: 'public_profile,email'});
+    FB.login((response) => this.checkLoginState(response), {scope: 'public_profile,email'});
   };
 
   handleLogout() {
-    FB.logout(this.checkLoginState);
+    FB.logout((response) => this.checkLoginState(response));
   };
 
   render() {
@@ -133,10 +109,10 @@ class Home extends React.Component {
           { this.state.responseStatus == "connected"? (
               <div>
                 <div>Welcome to Reeltalk, {this.state.name}!</div>
-                <a href="" onClick={this.handleLogout.bind(this)}>Logout</a>
+                <button onClick={this.handleLogout.bind(this)}>Logout</button>
               </div>
             ) : (
-              <a href="" onClick={this.handleLogin.bind(this)}>Login</a>
+              <button onClick={this.handleLogin.bind(this)}>Login</button>
             )
           }
         </div>
