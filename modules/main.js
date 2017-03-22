@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {APP_ID} from '../keys';
+import Home from './home.js';
 
-class Home extends React.Component {
+class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -107,10 +108,7 @@ class Home extends React.Component {
       return (
         <div>
           { this.state.responseStatus == "connected"? (
-              <div>
-                <div>Welcome to Reeltalk, {this.state.name}!</div>
-                <button onClick={this.handleLogout.bind(this)}>Logout</button>
-              </div>
+              <Home name={this.state.name} />
             ) : (
               <button onClick={this.handleLogin.bind(this)}>Login</button>
             )
@@ -122,6 +120,6 @@ class Home extends React.Component {
 }
 
 ReactDOM.render(
-  <Home />,
+  <Main />,
   document.getElementById('root')
 );
