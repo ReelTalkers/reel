@@ -25,6 +25,8 @@ body {
 
 /* Navbar */
 .navbar {
+  display: flex;
+  justify-content: center;
   height: 55px;
   background-color: #ffffff;
   border: solid 1px #edeeee;
@@ -32,12 +34,30 @@ body {
   width: 100%;
 }
 
+.navbar > * {
+  display: inline-block;
+}
+
+.navbar .logo img {
+  flex: 1 9999 0%;
+  width: 91px;
+  height: 32px;
+}
+
 .navbar .search-bar {
+  flex: 1 9999 0%;
   width: 420px;
   height: 28px;
   border-radius: 15px;
   background-color: #fafafa;
   border: solid 1px #edeeee;
+}
+
+.navbar .user-name {
+  flex: 1 9999 0%;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: #cda43d;
 }
 
 /* Group */
