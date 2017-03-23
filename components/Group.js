@@ -10,14 +10,30 @@ class Group extends React.Component {
     return (
       <div className="group">
         <div className="photos">
-          <div className="round-image-wrapper">
-            <img src={this.props.user_picture.data.url}/>
-          </div>
-          <div className="add">
-            <div className="plus"></div>
-          </div>
+          <CircularPhoto photo_url={this.props.user_picture.data.url}/>
+          <AddButton/>
         </div>
         <div className="group-name">You</div>
+      </div>
+    );
+  }
+}
+
+class CircularPhoto extends React.Component {
+  render() {
+    return (
+      <div className="circular-photo">
+        <img src={this.props.photo_url}/>
+      </div>
+    );
+  }
+}
+
+class AddButton extends React.Component {
+  render() {
+    return (
+      <div className="add">
+        <div className="plus"></div>
       </div>
     );
   }

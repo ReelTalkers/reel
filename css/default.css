@@ -5,7 +5,7 @@ body {
   margin-top:15px;
 }
 
-.round-image-wrapper {
+.circular-photo {
   width: 70px;
   height: 70px;
   position: relative;
@@ -17,7 +17,7 @@ body {
   border-radius: 50%;
 }
 
-.round-image-wrapper img {
+.circular-photo img {
   display: inline;
   margin: 0 auto;
   height: 100%;
