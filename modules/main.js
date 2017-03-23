@@ -108,7 +108,7 @@ class Main extends React.Component {
       return (
         <div>
           { this.state.responseStatus == "connected"? (
-              <Home name={this.state.name} />
+              <Home user_picture={this.state.picture} />
             ) : (
               <button onClick={this.handleLogin.bind(this)}>Login</button>
             )

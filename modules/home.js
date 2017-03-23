@@ -1,6 +1,7 @@
 var React = require('react');
 
 import Lolomo from '../components/Lolomo.js';
+import Group from '../components/Group.js';
 
 class Home extends React.Component {
   constructor() {
@@ -10,7 +11,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className="home">
-        <div>Welcome to Reeltalk, {this.props.name}!</div>
+        <Group user_picture={this.props.user_picture}/>
         <Lolomo />
       </div>
     );

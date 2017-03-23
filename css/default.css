@@ -2,6 +2,42 @@ body {
   font-family: HelveticaNeue,Gill Sans,Helvetica,sans-serif;
   background-color: #FAFAFA;
   margin: 0px;
+  margin-top:15px;
+}
+
+.round-image-wrapper {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.round-image-wrapper img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+/* Group */
+.group {
+  text-align: center;
+  font-size: 16px;
+  color: #77797b;
+}
+
+.group .round-image-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.group .group-name {
+  margin-top: 5px;
 }
 
 
