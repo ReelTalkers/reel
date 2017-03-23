@@ -2,7 +2,6 @@ body {
   font-family: HelveticaNeue,Gill Sans,Helvetica,sans-serif;
   background-color: #FAFAFA;
   margin: 0px;
-  margin-top:15px;
 }
 
 .circular-photo {
@@ -22,6 +21,23 @@ body {
   margin: 0 auto;
   height: 100%;
   width: auto;
+}
+
+/* Navbar */
+.navbar {
+  height: 55px;
+  background-color: #ffffff;
+  border: solid 1px #edeeee;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.navbar .search-bar {
+  width: 420px;
+  height: 28px;
+  border-radius: 15px;
+  background-color: #fafafa;
+  border: solid 1px #edeeee;
 }
 
 /* Group */
