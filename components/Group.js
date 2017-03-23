@@ -14,7 +14,7 @@ class Group extends React.Component {
             <img src={this.props.user_picture.data.url}/>
           </div>
           <div className="add">
-            <div className="plus"/>
+            <div className="plus"></div>
           </div>
         </div>
         <div className="group-name">You</div>
