@@ -1,12 +1,12 @@
 # reel-web
 The front end website of Reel
 
-##Setup
+## Setup
 ```sh
 npm install
 ```
 
-##Run
+## Run
 ```sh
 npm start
 ```

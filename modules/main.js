@@ -11,7 +11,11 @@ class Main extends React.Component {
     }
   };
 
-  componentWillMount() {
+  componentDidMount() {
+    if (document.getElementById('facebook-jssdk')) {
+      return;
+    }
+
     window.fbAsyncInit = function() {
         FB.init({
           appId      : APP_ID,
@@ -21,7 +25,7 @@ class Main extends React.Component {
         });
 
         FB.getLoginStatus(function(response) {
-          this.statusChangeCallback(response);
+          this.checkLoginState(response);
         }.bind(this));
       }.bind(this);
     this.loadSdkAsynchronously();
@@ -43,7 +47,7 @@ class Main extends React.Component {
     // see results load and then info fill in
     this.state = {
       responseStatus: response.status
-    }
+    };
     if (response.status === 'connected') {
       // if the user is logged in then fetch data about them
       this.fetchUser(response.authResponse);
@@ -77,14 +81,18 @@ class Main extends React.Component {
     });
   };
 
-  checkLoginState() {
+  checkLoginState(response) {
     FB.getLoginStatus(function(response) {
       this.statusChangeCallback(response);
     }.bind(this));
   };
 
-  handleClick() {
-    FB.login(this.checkLoginState());
+  handleLogin() {
+    FB.login((response) => this.checkLoginState(response), {scope: 'public_profile,email'});
+  };
+
+  handleLogout() {
+    FB.logout((response) => this.checkLoginState(response));
   };
 
   render() {
@@ -100,9 +108,9 @@ class Main extends React.Component {
       return (
         <div>
           { this.state.responseStatus == "connected"? (
-              "Welcome to Reeltalk, "+this.state.name+"!"
+              <Home user_picture={this.state.picture} />
             ) : (
-              <a href="#" onClick={this.handleClick.bind(this)}>Login</a>
+              <button onClick={this.handleLogin.bind(this)}>Login</button>
             )
           }
         </div>
@@ -112,6 +120,6 @@ class Main extends React.Component {
 }
 
 ReactDOM.render(
-  <Home />,
+  <Main />,
   document.getElementById('root')
 );
