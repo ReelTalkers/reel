@@ -87,6 +87,15 @@ body {
   -webkit-box-sizing: border-box;
 }
 
+.group .add:hover {
+  border-color: #F7E688;
+}
+
+.group .add:hover .plus:before,
+.group .add:hover .plus:after {
+  background-color: #dacb78;
+}
+
 /* from https://jsfiddle.net/psullivan6/0eL3jezk/ */
 .group .plus {
   position: relative;
