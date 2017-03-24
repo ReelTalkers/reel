@@ -69,6 +69,7 @@ body {
 
 .group .photos > * {
   display: inline-block;
+  margin: 0px 15px;
 }
 
 .group .add {
