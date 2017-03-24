@@ -4,25 +4,6 @@ body {
   margin: 0px;
 }
 
-.circular-photo {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  overflow: hidden;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.circular-photo img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
-}
-
 /* Navbar */
 .navbar {
   display: flex;
@@ -67,12 +48,64 @@ body {
   color: #77797b;
 }
 
-.group .photos > * {
+.group .circles {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.group .circles > * {
   display: inline-block;
-  margin: 0px 15px;
+}
+
+.group .photos {
+  transition: margin 0.2s ease-out;
+}
+
+.group .photos:hover {
+  margin-right: -45px;
+}
+
+.group .photos .circular-photo:first-child {
+  margin-left: 0px;
+}
+
+.group .circular-photo {
+  padding: 0px 5px;
+  display: inline-block;
+  margin-left: -45px;
+  transition: margin 0.2s ease-out;
+}
+
+.circular-photo:hover {
+  margin-right: 45px;
+}
+
+.group .circular-photo .inner-circle {
+  border: solid 3px #fafafa;
+}
+
+.circular-photo .inner-circle {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.circular-photo .inner-circle img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }
 
 .group .add {
+  margin-left: 15px;
   background-color: white;
   border: solid 2px #c1c2c2;
   width: 70px;
