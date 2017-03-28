@@ -45,9 +45,7 @@ body {
   height: 32px;
 }
 
-
-
-.navbar .search-bar {
+.navbar .search-bar{
   width: 420px;
   height: 28px;
   border-radius: 15px;
@@ -64,7 +62,7 @@ body {
 }
 
 .navbar .search-bar input[type="text"]{
-  width: 46px;
+  width: 420px;
   height: 17px;
   font-family: HelveticaNeue;
   font-size: 14px;
@@ -73,13 +71,25 @@ body {
   font-stretch: normal;
   line-height: normal;
   letter-spacing: 0.3px;
-  text-align: left;
+  text-align: center;
   color: #818488;
   border: none;
-  height: inherit;
-  width:inherit;
   background-color: inherit;
 }
+
+.navbar .search-bar:focus {
+
+}
+
+.navbar .search-bar img:focus {
+  padding: 4px 4px 10px 10px;
+}
+
+.navbar .search-bar input[type="text"]:focus{
+  text-align: left;
+}
+
+
 
 
 .navbar .user-name {
