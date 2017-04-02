@@ -26,13 +26,52 @@ body {
   height: 32px;
 }
 
-.navbar .search-bar {
+.navbar .search-bar{
   width: 420px;
   height: 28px;
   border-radius: 15px;
   background-color: #fafafa;
   border: solid 1px #edeeee;
+  display: inline-block;
 }
+
+.navbar .search-bar img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  padding: 4px 4px 10px 10px;
+}
+
+.navbar .search-bar input[type="text"]{
+  width: 420px;
+  height: 17px;
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #818488;
+  border: none;
+  background-color: inherit;
+}
+
+.navbar .search-bar:focus {
+
+}
+
+.navbar .search-bar img:focus {
+  padding: 4px 4px 10px 10px;
+}
+
+.navbar .search-bar input[type="text"]:focus{
+  text-align: left;
+}
+
+
+
 
 .navbar .user-name {
   font-size: 16px;
