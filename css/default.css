@@ -58,16 +58,12 @@ body {
   display: inline-block;
 }
 
-.group .photos {
-  transition: margin 0.2s ease-out;
-}
-
-.group .photos:hover {
-  margin-right: -45px;
-}
-
 .group .photos .circular-photo:first-child {
   margin-left: 0px;
+}
+
+.group .photos .circular-photo:last-child:hover {
+  margin-right: 0px;
 }
 
 .group .circular-photo {
@@ -77,7 +73,7 @@ body {
   transition: margin 0.2s ease-out;
 }
 
-.circular-photo:hover {
+.group .circular-photo:hover {
   margin-right: 45px;
 }
 
