@@ -97,23 +97,26 @@ body {
   display: inline-block;
 }
 
-.group .photos .circular-photo:first-child {
+.group .circular-photo:first-child {
   margin-left: 0px;
 }
 
-.group .photos .circular-photo:last-child:hover {
-  margin-right: 0px;
-}
-
 .group .circular-photo {
-  padding: 0px 5px;
   display: inline-block;
-  margin-left: -45px;
+  margin-left: -31px;
   transition: margin 0.2s ease-out;
 }
 
-.group .circular-photo:hover {
-  margin-right: 45px;
+.group .circular-photo:hover + .circular-photo {
+  margin-left: -3px;
+}
+
+.group .circular-photo:hover ~ .add {
+  margin-left: 0px;
+}
+
+.group .circular-photo:hover + .add {
+  margin-left: 28px;
 }
 
 .group .circular-photo .inner-circle {
@@ -140,7 +143,9 @@ body {
 }
 
 .group .add {
-  margin-left: 15px;
+  transition: margin 0.2s ease-out;
+  display: inline-block;
+  margin-left: 28px;
   background-color: white;
   border: solid 2px #c1c2c2;
   width: 70px;
