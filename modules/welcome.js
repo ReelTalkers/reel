@@ -1,6 +1,7 @@
 var React = require('react');
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import Home from './home.js';
 
 class Welcome extends React.Component {
   constructor(props) {
@@ -20,12 +21,14 @@ class Welcome extends React.Component {
     }
     console.log(this.props.data);
 
-    // fetch('http://localhost:3000/').then(response => console.log(response));
-    // if this.props.loggedIn: home, if not: welcome
+    if (this.props.data.logged_in) {
+      return(
+        <Home user_picture={this.props.data.current_user.smallPhoto}/>
+      );
+    }
     return(
       <div>
-        {this.props.data.logged_in.toString()}
-        <a href="http://localhost:3000/auth/facebook">test</a>
+        <a href="http://localhost:3000/auth/facebook">Login</a>
       </div>
     );
   }
@@ -39,12 +42,15 @@ Welcome.propTypes = {
   }).isRequired,
 };
 
-const LoggedInQuery = gql`
-  query LoggedInQuery {
-    logged_in
+const CurrentUserQuery = gql`
+  query CurrentUserQuery {
+    logged_in,
+    current_user {
+      smallPhoto
+    }
   }
 `
 
-const WelcomeWithData = graphql(LoggedInQuery)(Welcome)
+const WelcomeWithData = graphql(CurrentUserQuery)(Welcome)
 
 export default WelcomeWithData;
