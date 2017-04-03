@@ -101,22 +101,22 @@ body {
   margin-left: 0px;
 }
 
+.group .circular-photo:last-child {
+  margin-right: 28px;
+}
+/* TODO: To make this perfect we will probably need javascript*/
+.group .photos .circular-photo:not(:last-child):hover ~ .circular-photo:last-child {
+  margin-right: 0px;
+}
+
+.group .circular-photo:hover {
+  margin-right: 28;
+}
+
 .group .circular-photo {
   display: inline-block;
   margin-left: -31px;
   transition: margin 0.2s ease-out;
-}
-
-.group .circular-photo:hover + .circular-photo {
-  margin-left: -3px;
-}
-
-.group .circular-photo:hover ~ .add {
-  margin-left: 0px;
-}
-
-.group .circular-photo:hover + .add {
-  margin-left: 28px;
 }
 
 .group .circular-photo .inner-circle {
@@ -143,9 +143,7 @@ body {
 }
 
 .group .add {
-  transition: margin 0.2s ease-out;
   display: inline-block;
-  margin-left: 28px;
   background-color: white;
   border: solid 2px #c1c2c2;
   width: 70px;

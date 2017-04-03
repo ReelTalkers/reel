@@ -10,9 +10,11 @@ class Group extends React.Component {
     return (
       <div className="group">
         <div className="circles">
-          <CircularPhoto photo_url={this.props.user_picture}/>
-          <CircularPhoto photo_url="https://lh3.googleusercontent.com/-R9i1ENT-FLM/AAAAAAAAAAI/AAAAAAAAADA/c9MxnVlrYGs/photo.jpg"/>
-          <CircularPhoto photo_url="https://www.wired.com/wp-content/uploads/2016/02/KanyeWest-42-69483240.jpg"/>
+          <div className="photos">
+            <CircularPhoto photo_url={this.props.user_picture}/>
+            <CircularPhoto photo_url="https://lh3.googleusercontent.com/-R9i1ENT-FLM/AAAAAAAAAAI/AAAAAAAAADA/c9MxnVlrYGs/photo.jpg"/>
+            <CircularPhoto photo_url="https://www.wired.com/wp-content/uploads/2016/02/KanyeWest-42-69483240.jpg"/>
+          </div>
           <AddButton/>
         </div>
         <div className="group-name">You & Friends</div>
