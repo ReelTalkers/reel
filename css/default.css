@@ -220,6 +220,10 @@ body {
   padding-left: 50px;
 }
 
+.lolomo .movies::-webkit-scrollbar {
+    display: none;
+}
+
 .lolomo .title {
   color: #818488;
   font-size: 25px;
