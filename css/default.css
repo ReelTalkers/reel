@@ -216,16 +216,14 @@ body {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  padding-top: 3px;
-  padding-bottom: 5px;
   margin-left: -55px;
-  padding-left: 55px;
+  padding-left: 50px;
 }
 
 .lolomo .title {
   color: #818488;
   font-size: 25px;
-  margin: 5px 0px;
+  margin-top: 5px;
 }
 
 .lolomo .movie {
@@ -233,7 +231,13 @@ body {
 	height: 250px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
   display: inline-block;
-  margin-right: 10px;
+  margin: 5px;
+}
+
+.lolomo .movie.active {
+  border: solid 4px #f5d72f;
+  margin: 1px;
+  box-shadow: none;
 }
 
 .lolomo .movie img {
