@@ -3,6 +3,32 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class Lolomo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedLomo: null,
+      disableSelectedLomo: (() => null)
+    }
+  }
+
+  enableActiveDetail(genre, disable) {
+    this.disableActiveDetail(genre);
+    this.setState({
+      selectedLomo: genre,
+      disableSelectedLomo: (() => disable())
+    })
+  }
+
+  disableActiveDetail(genre) {
+    if (this.state.selectedLomo != genre) {
+      this.state.disableSelectedLomo();
+    }
+    this.setState({
+      selectedLomo: null,
+      disableSelectedLomo: (() => null)
+    });
+  }
+
   render() {
     return (
       <div className="lolomo">
@@ -11,6 +37,8 @@ class Lolomo extends React.Component {
             key={genre.genre}
             title={genre.genre}
             movies={genre.media}
+            enableActiveDetail={this.enableActiveDetail.bind(this)}
+            disableActiveDetail={this.disableActiveDetail.bind(this)}
           />
         )}
       </div>
@@ -22,37 +50,39 @@ class Lomo extends React.Component {
   constructor() {
     super();
     this.state = {
-      movieSelected: false,
-      movieSelectedId: null,
-      disableSelectedMovie: null,
+      isActive: false,
+      selectedMovie: null,
+      disableSelectedMovie: (() => null)
     }
   }
 
-  showMovie(id, disable) {
-    if (this.state.movieSelected) {
+  enableDetail(id, disable) {
+    this.disableDetail(id);
+    this.props.enableActiveDetail(this.props.title, this.disableDetail.bind(this));
+
+    this.setState({
+      isActive: true,
+      selectedMovie: id,
+      disableSelectedMovie: (() => disable())
+    });
+  }
+
+  disableDetail(id) {
+    if (this.state.selectedMovie != id) {
       this.state.disableSelectedMovie();
     }
-    this.setState({
-      movieSelected: true,
-      movieSelectedId: id,
-      disableSelectedMovie: () => disable()
-    })
-  }
+    this.props.disableActiveDetail(this.props.title);
 
-  stopShowingMovie(id) {
-    if (this.state.movieSelectedId !== id) {
-      throw "Error, "+id+" was not selected before deselection";
-    } else {
-      this.setState({
-        movieSelected: false,
-        movieSelectedId: null
-      })
-    }
+    this.setState({
+      isActive: false,
+      selectedMovie: null,
+      disableSelectedMovie: (() => null)
+    });
   }
 
   render() {
-    const movieDetail = this.state.movieSelected?
-      <MovieDetailWithData id={this.state.movieSelectedId}/> :
+    const movieDetail = this.state.isActive?
+      <MovieDetailWithData id={this.state.selectedMovie}/> :
       "";
     return (
       <div className="lomo">
@@ -64,8 +94,8 @@ class Lomo extends React.Component {
               key={movie.poster_path}
               id={movie.id}
               poster_path={movie.poster_path}
-              showMovie={this.showMovie.bind(this)}
-              stopShowingMovie={this.stopShowingMovie.bind(this)}
+              enableDetail={this.enableDetail.bind(this)}
+              disableDetail={this.disableDetail.bind(this)}
             />
           )}
         </div>
@@ -89,9 +119,9 @@ class Movie extends React.Component {
 
   toggleActive() {
     if (this.state.isActive) {
-      this.props.stopShowingMovie(this.props.id);
+      this.props.disableDetail(this.props.id);
     } else {
-      this.props.showMovie(this.props.id, this.toggleActive.bind(this));
+      this.props.enableDetail(this.props.id, this.toggleActive.bind(this));
     }
     this.setState({
       isActive: !this.state.isActive
