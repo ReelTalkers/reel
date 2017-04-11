@@ -34,6 +34,17 @@ class Lomo extends React.Component {
     })
   }
 
+  stopShowingMovie(id) {
+    if (this.state.movieSelectedId !== id) {
+      throw "Error, "+id+" was not selected before deselection";
+    } else {
+      this.setState({
+        movieSelected: false,
+        movieSelectedId: null
+      })
+    }
+  }
+
   render() {
     const movieDetail = this.state.movieSelected?
       <MovieDetailWithData id={this.state.movieSelectedId}/> :
@@ -49,6 +60,7 @@ class Lomo extends React.Component {
               id={movie.id}
               poster_path={movie.poster_path}
               showMovie={this.showMovie.bind(this)}
+              stopShowingMovie={this.stopShowingMovie.bind(this)}
             />
           )}
         </div>
@@ -71,7 +83,11 @@ class Movie extends React.Component {
   }
 
   toggleActive() {
-    this.props.showMovie(this.props.id);
+    if (this.state.isActive) {
+      this.props.stopShowingMovie(this.props.id);
+    } else {
+      this.props.showMovie(this.props.id);
+    }
     this.setState({
       isActive: !this.state.isActive
     })
