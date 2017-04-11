@@ -4,7 +4,7 @@ var data = `{
     "genre": "Top Picks",
     "media": [
       {
-        "id": "tt4882174",
+        "id": "tt0082875",
         "poster_path": "/qAwFbszz0kRyTuXmMeKQZCX3Q2O.jpg"
       },
       {

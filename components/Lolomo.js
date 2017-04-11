@@ -1,4 +1,6 @@
 var React = require('react');
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Lolomo extends React.Component {
   render() {
@@ -17,7 +19,25 @@ class Lolomo extends React.Component {
 }
 
 class Lomo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      movieSelected: false,
+      movieSelectedId: null,
+    }
+  }
+
+  showMovie(id) {
+    this.setState({
+      movieSelected: true,
+      movieSelectedId: id
+    })
+  }
+
   render() {
+    const movieDetail = this.state.movieSelected?
+      <MovieDetailWithData id={this.state.movieSelectedId}/> :
+      "";
     return (
       <div className="lomo">
         <div className="title">{this.props.title}</div>
@@ -28,8 +48,12 @@ class Lomo extends React.Component {
               key={movie.poster_path}
               id={movie.id}
               poster_path={movie.poster_path}
+              showMovie={this.showMovie.bind(this)}
             />
           )}
+        </div>
+        <div>
+          {movieDetail}
         </div>
       </div>
     );
@@ -47,6 +71,7 @@ class Movie extends React.Component {
   }
 
   toggleActive() {
+    this.props.showMovie(this.props.id);
     this.setState({
       isActive: !this.state.isActive
     })
@@ -61,5 +86,52 @@ class Movie extends React.Component {
     );
   }
 }
+
+class MovieDetail extends React.Component {
+  render() {
+    if (this.props.data.loading) {
+      // loading
+      return (<div></div>)
+    } else if (this.props.data.error) {
+      // error
+      return (<div>An unexpected error occurred</div>)
+    }
+
+    return (
+      <div clasName="movie-detail">
+        <div className="poster"></div>
+        <div className="info">
+          <div className="title">
+            {this.props.data.media.title}
+          </div>
+          <div className="tabs"></div>
+          <div className="description">
+            {this.props.data.media.overview}
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+MovieDetail.propTypes = {
+  data: React.PropTypes.shape({
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.object,
+  }).isRequired,
+};
+
+const MovieDetailQuery = gql`
+  query MovieDetailQuery($id: String!) {
+    media(id: $id) {
+      overview,
+      title,
+    }
+  }
+`
+
+const MovieDetailWithData = graphql(MovieDetailQuery, {
+    options: ({ id }) => ({ variables: { id } }),
+})(MovieDetail);
 
 export default Lolomo;
