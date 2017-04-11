@@ -24,13 +24,18 @@ class Lomo extends React.Component {
     this.state = {
       movieSelected: false,
       movieSelectedId: null,
+      disableSelectedMovie: null,
     }
   }
 
-  showMovie(id) {
+  showMovie(id, disable) {
+    if (this.state.movieSelected) {
+      this.state.disableSelectedMovie();
+    }
     this.setState({
       movieSelected: true,
-      movieSelectedId: id
+      movieSelectedId: id,
+      disableSelectedMovie: () => disable()
     })
   }
 
@@ -86,7 +91,7 @@ class Movie extends React.Component {
     if (this.state.isActive) {
       this.props.stopShowingMovie(this.props.id);
     } else {
-      this.props.showMovie(this.props.id);
+      this.props.showMovie(this.props.id, this.toggleActive.bind(this));
     }
     this.setState({
       isActive: !this.state.isActive
