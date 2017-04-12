@@ -4,25 +4,6 @@ body {
   margin: 0px;
 }
 
-.circular-photo {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  overflow: hidden;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.circular-photo img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
-}
-
 /* Navbar */
 .navbar {
   display: flex;
@@ -45,13 +26,52 @@ body {
   height: 32px;
 }
 
-.navbar .search-bar {
-  max-width: 420px;
+.navbar .search-bar{
+  width: 420px;
   height: 28px;
   border-radius: 15px;
   background-color: #fafafa;
   border: solid 1px #edeeee;
+  display: inline-block;
 }
+
+.navbar .search-bar img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  padding: 4px 4px 10px 10px;
+}
+
+.navbar .search-bar input[type="text"]{
+  width: 420px;
+  height: 17px;
+  font-family: HelveticaNeue;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #818488;
+  border: none;
+  background-color: inherit;
+}
+
+.navbar .search-bar:focus {
+
+}
+
+.navbar .search-bar img:focus {
+  padding: 4px 4px 10px 10px;
+}
+
+.navbar .search-bar input[type="text"]:focus{
+  text-align: left;
+}
+
+
+
 
 .navbar .user-name {
   font-size: 16px;
@@ -67,12 +87,59 @@ body {
   color: #77797b;
 }
 
-.group .photos > * {
+.group .circles {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.group .circles > * {
   display: inline-block;
-  margin: 0px 15px;
+}
+
+.group .circular-photo:first-child {
+  margin-left: 0px;
+}
+
+.group .photos {
+  margin-right: 28px;
+}
+
+.group .circular-photo:hover ~ .circular-photo {
+  transform: translateX(28px);
+}
+
+.group .circular-photo {
+  display: inline-block;
+  margin-left: -31px;
+  transition: transform 0.2s ease-out;
+}
+
+.group .circular-photo .inner-circle {
+  border: solid 3px #fafafa;
+}
+
+.circular-photo .inner-circle {
+  width: 70px;
+  height: 70px;
+  position: relative;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.circular-photo .inner-circle img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }
 
 .group .add {
+  display: inline-block;
   background-color: white;
   border: solid 2px #c1c2c2;
   width: 70px;
@@ -149,16 +216,18 @@ body {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  padding-top: 3px;
-  padding-bottom: 5px;
   margin-left: -55px;
-  padding-left: 55px;
+  padding-left: 50px;
+}
+
+.lolomo .movies::-webkit-scrollbar {
+    display: none;
 }
 
 .lolomo .title {
   color: #818488;
   font-size: 25px;
-  margin: 5px 0px;
+  margin-top: 5px;
 }
 
 .lolomo .movie {
@@ -166,7 +235,13 @@ body {
 	height: 250px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
   display: inline-block;
-  margin-right: 10px;
+  margin: 5px;
+}
+
+.lolomo .movie.active {
+  border: solid 4px #f5d72f;
+  margin: 1px;
+  box-shadow: none;
 }
 
 .lolomo .movie img {

@@ -14,6 +14,10 @@ class Navbar extends React.Component {
           </a>
         </div>
         <div className="search-bar">
+            <a>
+              <img src="/assets/search.png" alt="Search"/>
+            </a>
+          <input type="text" name="search-bar" placeholder="Search..."/>
         </div>
         <div className="user-name">
           andrew
