@@ -24,7 +24,7 @@ class Navbar extends React.Component {
 
 import Autosuggest from 'react-autosuggest';
 
-const getSuggestionValue = suggestion => suggestion;
+const getSuggestionValue = suggestion => suggestion.name;
 
 const renderSuggestion = suggestion => (
   <div>
@@ -41,6 +41,20 @@ const renderInputComponent = inputProps => (
     </div>
   </div>
 );
+
+const renderSuggestionsContainer = ({ containerProps , children, query })  => {
+  const activeStyle = query == ""? " hidden" : ""
+  return (
+    <div className={"suggestions-container"+activeStyle}>
+      <div className="triangle"></div>
+      <div className="suggestions">
+        <div {... containerProps}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 class SearchBar extends React.Component {
   constructor() {
@@ -62,7 +76,7 @@ class SearchBar extends React.Component {
     // See if we should just show users
     // combine users and people
     this.setState({
-      suggestions: [value]
+      suggestions: [{name: "mom"},{name: "mom"},{name: "mom"},{name: "mom"}]
     });
   };
 
@@ -80,17 +94,18 @@ class SearchBar extends React.Component {
     const inputProps = {
       placeholder: 'Search',
       value,
-      onChange: this.onChange
+      onChange: this.onChange.bind(this)
     };
 
     return (
       <Autosuggest
         suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested.bind(this)}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested.bind(this)}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
         renderInputComponent={renderInputComponent}
+        renderSuggestionsContainer={renderSuggestionsContainer}
         inputProps={inputProps}
       />
     );
