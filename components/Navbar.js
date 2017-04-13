@@ -32,15 +32,18 @@ const renderSuggestion = suggestion => (
   </div>
 );
 
-const renderInputComponent = inputProps => (
-  <div className="search-bar">
-    <input {...inputProps} />
-    <div className="placeholder">
-      <img src="/assets/search.png" alt="Search"/>
-      <span className="text">Search</span>
+const renderInputComponent = inputProps => {
+  const placeholder = inputProps.value == ""? "Search" : inputProps.value;
+  return (
+    <div className="search-bar">
+      <input {...inputProps} />
+      <div className="placeholder">
+        <img src="/assets/search.png" alt="Search"/>
+        <span className="text">{placeholder}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const renderSuggestionsContainer = ({ containerProps , children, query })  => {
   const activeStyle = children == null? " hidden" : ""
