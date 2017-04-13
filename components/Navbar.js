@@ -37,7 +37,7 @@ class Navbar extends React.Component {
 const getSuggestionValue = suggestion => suggestion.title;
 
 const renderSuggestion = suggestion => (
-  <div>
+  <div className="suggestion">
     {suggestion.title}
   </div>
 );
@@ -73,7 +73,8 @@ class SearchBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      suggestions: []
+      suggestions: [],
+      updateSuggestions: false
     };
   }
 
@@ -82,7 +83,9 @@ class SearchBar extends React.Component {
   };
 
   onSuggestionsFetchRequested({ value }) {
-    // this is required but we dont need it
+    this.setState({
+      updateSuggestions: true
+    });
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -93,8 +96,11 @@ class SearchBar extends React.Component {
   };
 
   getSuggestions() {
-    if (typeof this.props.data != 'undefined' && !this.props.data.loading) {
+    if (typeof this.props.data != 'undefined'
+    && !this.props.data.loading
+    && this.state.updateSuggestions) {
       this.state = {
+        updateSuggestions:false,
         suggestions: this.props.data.search_media
       }
     }
