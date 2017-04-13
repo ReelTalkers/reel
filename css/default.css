@@ -74,7 +74,7 @@ body {
   font-size: 14px;
   letter-spacing: 0.3px;
   text-align: center;
-  color: #818488;
+  color: transparent;
   border: none;
   background-color: inherit;
   padding-left: 25px;
@@ -93,7 +93,7 @@ body {
   outline: none;
   flex: 1;
   text-align: left;
-  color:
+  color: #262626;
 }
 
 .navbar .suggestions-container {
