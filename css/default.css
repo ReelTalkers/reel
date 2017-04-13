@@ -104,7 +104,7 @@ body {
 
 .navbar .suggestions {
   margin-top: -9px;
-  width: 225px;
+  width: 260px;
   z-index: 2;
   border-radius: 3px;
 	background-color: #ffffff;
@@ -122,6 +122,34 @@ body {
 
 .navbar .suggestions .react-autosuggest__suggestion--highlighted .suggestion {
   background-color: #fafafa;
+}
+
+.navbar .suggestion {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  padding: 20px 10px;
+}
+
+.navbar .suggestion > * {
+  display: inline-block;
+}
+
+.navbar .suggestion .info {
+  flex: 1;
+}
+
+.navbar .suggestion .info .title {
+  color: #818488;
+}
+
+.navbar .suggestion .info .director {
+  color: #c9c8cd;
+}
+
+.navbar .suggestion .image {
+  margin-right: 10px;
 }
 
 .navbar .suggestion .image img {
@@ -152,7 +180,7 @@ body {
   border-color: transparent transparent #fff;
   border-style: solid;
   border-width: 0 10px 10px;
-  left: 103px;
+  left: 120px;
   height: 0;
   top: -10px;
   width: 0;
