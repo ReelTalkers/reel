@@ -111,7 +111,13 @@ body {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.13);
 	border: solid 1px #edeeee;
   position: relative;
-  top:0px;
+  top: 0px;
+}
+
+.navbar .suggestions .react-autosuggest__suggestions-container {
+  max-height: 362px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .navbar .suggestions .react-autosuggest__suggestions-list {
