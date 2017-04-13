@@ -1,4 +1,7 @@
 var React = require('react');
+import Autosuggest from 'react-autosuggest';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
 class Navbar extends React.Component {
   constructor() {
@@ -21,8 +24,6 @@ class Navbar extends React.Component {
     );
   }
 }
-
-import Autosuggest from 'react-autosuggest';
 
 const getSuggestionValue = suggestion => suggestion.name;
 
@@ -111,16 +112,6 @@ class SearchBar extends React.Component {
         renderSuggestionsContainer={renderSuggestionsContainer}
         inputProps={inputProps}
       />
-    );
-
-    return (
-      <div className="search-bar">
-        <input type="text" name="search-bar" placeholder="Search"/>
-        <div className="placeholder">
-          <img src="/assets/search.png" alt="Search"/>
-          <span className="text">Search</span>
-        </div>
-      </div>
     );
   }
 }
