@@ -12,6 +12,7 @@
     "apollo-client": "^1.0.0-rc.6",
     "react": "^0.14.5",
     "react-apollo": "^1.0.0-rc.3",
+    "react-autosuggest": "^9.0.0",
     "react-dom": "^0.14.5",
     "react-facebook-login": "^3.4.3",
     "react-router": "^4.0.0",

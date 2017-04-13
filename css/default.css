@@ -26,8 +26,11 @@ body {
   height: 32px;
 }
 
+.navbar .react-autosuggest__container {
+  max-width: 420px;
+}
+
 .navbar .search-bar{
-  max-width: 410px;
   height: 28px;
   border-radius: 15px;
   background-color: #fafafa;
