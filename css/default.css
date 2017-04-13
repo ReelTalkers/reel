@@ -130,6 +130,11 @@ body {
   font-size: 14px;
   letter-spacing: 0.3px;
   padding: 20px 10px;
+  border-top: solid 1px #edeeef;
+}
+
+.navbar .react-autosuggest__suggestion--first .suggestion {
+  border-top-style: none;
 }
 
 .navbar .suggestion > * {
