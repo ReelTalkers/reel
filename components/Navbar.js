@@ -43,7 +43,7 @@ const renderInputComponent = inputProps => (
 );
 
 const renderSuggestionsContainer = ({ containerProps , children, query })  => {
-  const activeStyle = query == ""? " hidden" : ""
+  const activeStyle = children == null? " hidden" : ""
   return (
     <div className={"suggestions-container"+activeStyle}>
       <div className="triangle"></div>
