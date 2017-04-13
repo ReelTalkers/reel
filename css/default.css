@@ -124,6 +124,11 @@ body {
   background-color: #fafafa;
 }
 
+.navbar .suggestion .image img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+}
 
 .hidden {
   display: none;

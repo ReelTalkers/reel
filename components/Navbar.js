@@ -36,11 +36,24 @@ class Navbar extends React.Component {
 
 const getSuggestionValue = suggestion => suggestion.title;
 
-const renderSuggestion = suggestion => (
-  <div className="suggestion">
-    {suggestion.title}
-  </div>
-);
+const renderSuggestion = suggestion => {
+  const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + suggestion.poster_path;
+  return (
+    <div className="suggestion">
+      <div className="image">
+        <img src={poster_url}/>
+      </div>
+      <div className="info">
+        <div className="title">
+          {suggestion.title}
+        </div>
+        <div className="director">
+          urmom
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const renderInputComponent = inputProps => {
   const placeholder = inputProps.value == ""? "Search" : inputProps.value;
