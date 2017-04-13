@@ -6,6 +6,15 @@ import gql from 'graphql-tag';
 class Navbar extends React.Component {
   constructor() {
     super();
+    this.state = {
+      searchValue: ""
+    }
+  }
+
+  updateSearch(newValue) {
+    this.setState({
+      searchValue: newValue,
+    })
   }
 
   render() {
@@ -16,7 +25,7 @@ class Navbar extends React.Component {
             <img src="/assets/navbar-logo.png" alt="Reeltalk"/>
           </a>
         </div>
-        <SearchBar/>
+        <SearchBarWithData value={this.state.searchValue} onChange={this.updateSearch.bind(this)}/>
         <div className="user-name">
           andrew
         </div>
@@ -25,11 +34,11 @@ class Navbar extends React.Component {
   }
 }
 
-const getSuggestionValue = suggestion => suggestion.name;
+const getSuggestionValue = suggestion => suggestion.title;
 
 const renderSuggestion = suggestion => (
   <div>
-    {suggestion.name}
+    {suggestion.title}
   </div>
 );
 
@@ -47,7 +56,7 @@ const renderInputComponent = inputProps => {
 };
 
 const renderSuggestionsContainer = ({ containerProps , children, query })  => {
-  const activeStyle = children == null? " hidden" : ""
+  const activeStyle = children == null? " hidden" : "";
   return (
     <div className={"suggestions-container"+activeStyle}>
       <div className="triangle"></div>
@@ -64,24 +73,16 @@ class SearchBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: '',
       suggestions: []
     };
   }
 
   onChange(event, { newValue }) {
-    this.setState({
-      value: newValue
-    });
+    this.props.onChange(newValue);
   };
 
-  // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested({ value }) {
-    // See if we should just show users
-    // combine users and people
-    this.setState({
-      suggestions: [{name: "mom"},{name: "mom"},{name: "mom"},{name: "mom"}]
-    });
+    // this is required but we dont need it
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.
@@ -91,8 +92,18 @@ class SearchBar extends React.Component {
     });
   };
 
+  getSuggestions() {
+    if (typeof this.props.data != 'undefined' && !this.props.data.loading) {
+      this.state = {
+        suggestions: this.props.data.search_media
+      }
+    }
+    return this.state.suggestions;
+  }
+
   render() {
-    const { value, suggestions } = this.state;
+    const value = this.props.value;
+    const suggestions = this.getSuggestions();
 
     // Autosuggest will pass through all these props to the input element.
     const inputProps = {
@@ -115,5 +126,19 @@ class SearchBar extends React.Component {
     );
   }
 }
+
+const SearchQuery = gql`
+  query SearchQuery($value: String!) {
+    search_media(title: $value) {
+      title,
+      poster_path,
+    }
+  }
+`
+
+const SearchBarWithData = graphql(SearchQuery, {
+    skip: (ownProps) => ownProps.value == "",
+    options: ({ value }) => ({ variables: { value } }),
+})(SearchBar);
 
 export default Navbar;
