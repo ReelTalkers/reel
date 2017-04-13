@@ -114,6 +114,17 @@ body {
   top:0px;
 }
 
+.navbar .suggestions .react-autosuggest__suggestions-list {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+}
+
+.navbar .suggestions .react-autosuggest__suggestion--highlighted .suggestion {
+  background-color: #fafafa;;
+}
+
+
 .hidden {
   display: none;
 }
