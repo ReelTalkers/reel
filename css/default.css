@@ -350,7 +350,7 @@ body {
     display: none;
 }
 
-.lolomo .title {
+.lolomo .title, .movie-detail .title {
   color: #818488;
   font-size: 25px;
   margin-top: 5px;
