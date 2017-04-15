@@ -85,22 +85,22 @@ class Lomo extends React.Component {
       "";
     return (
       <div className="lomo">
-        <div className="title">{this.props.title}</div>
-        <div className="movies">
-          {this.props.movies.map(movie =>
-            <Movie
-              // TODO: change the key to be the movie.id
-              key={movie.poster_path}
-              id={movie.id}
-              poster_path={movie.poster_path}
-              enableDetail={this.enableDetail.bind(this)}
-              disableDetail={this.disableDetail.bind(this)}
-            />
-          )}
+        <div className="row">
+          <div className="title">{this.props.title}</div>
+          <div className="movies">
+            {this.props.movies.map(movie =>
+              <Movie
+                // TODO: change the key to be the movie.id
+                key={movie.poster_path}
+                id={movie.id}
+                poster_path={movie.poster_path}
+                enableDetail={this.enableDetail.bind(this)}
+                disableDetail={this.disableDetail.bind(this)}
+              />
+            )}
+          </div>
         </div>
-        <div>
-          {movieDetail}
-        </div>
+        {movieDetail}
       </div>
     );
   }

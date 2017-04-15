@@ -330,12 +330,12 @@ body {
 
 
 /* Lolomo */
-.lolomo {
-  margin-left: 55px;
-}
-
 .lolomo .lomo {
   margin-bottom: 15px;
+}
+
+.lolomo .lomo .row {
+  margin-left: 55px;
 }
 
 .lolomo .movies {
