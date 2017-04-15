@@ -2,12 +2,15 @@ var React = require('react');
 import Autosuggest from 'react-autosuggest';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import MovieDetail from './MovieDetail';
 
 class Navbar extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchValue: ""
+      searchValue: "",
+      displayMedia: false,
+      mediaID: null
     }
   }
 
@@ -17,18 +20,34 @@ class Navbar extends React.Component {
     })
   }
 
+  displayMedia(mediaID) {
+    this.setState({
+      displayMedia: true,
+      mediaID: mediaID
+    })
+  }
+
   render() {
+    const movieDetail = this.state.displayMedia?
+      <MovieDetail id={this.state.mediaID}/> :
+      "";
     return (
-      <div className="navbar">
-        <div className="logo">
-          <a href="/">
-            <img src="/assets/navbar-logo.png" alt="Reeltalk"/>
-          </a>
+      <div>
+        <div className="navbar">
+          <div className="logo">
+            <a href="/">
+              <img src="/assets/navbar-logo.png" alt="Reeltalk"/>
+            </a>
+          </div>
+          <SearchBarWithData
+            value={this.state.searchValue}
+            displayMedia={this.displayMedia.bind(this)}
+            onChange={this.updateSearch.bind(this)}/>
+          <div className="user-name">
+            andrew
+          </div>
         </div>
-        <SearchBarWithData value={this.state.searchValue} onChange={this.updateSearch.bind(this)}/>
-        <div className="user-name">
-          andrew
-        </div>
+        {movieDetail}
       </div>
     );
   }
@@ -125,6 +144,10 @@ class SearchBar extends React.Component {
     return this.state.suggestions;
   }
 
+  onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
+    this.props.displayMedia(suggestion.id)
+  }
+
   render() {
     const value = this.props.value;
     const suggestions = this.getSuggestions();
@@ -146,6 +169,8 @@ class SearchBar extends React.Component {
         renderInputComponent={renderInputComponent}
         renderSuggestionsContainer={renderSuggestionsContainer}
         inputProps={inputProps}
+        focusInputOnSuggestionClick={false}
+        onSuggestionSelected={this.onSuggestionSelected.bind(this)}
       />
     );
   }
@@ -154,6 +179,7 @@ class SearchBar extends React.Component {
 const SearchQuery = gql`
   query SearchQuery($value: String!) {
     search_media(title: $value) {
+      id,
       title,
       poster_path,
     }
