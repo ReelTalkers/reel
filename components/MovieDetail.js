@@ -3,6 +3,21 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class MovieDetail extends React.Component {
+  componentDidMount() {
+    this.ensureVisible();
+  }
+
+  componentDidUpdate() {
+    this.ensureVisible();
+  }
+
+  ensureVisible() {
+    const movieDetail = React.findDOMNode(this);
+    console.log(movieDetail.offsetHeight);
+    var top = movieDetail.offsetTop - ( window.innerHeight / 2 ) + (movieDetail.offsetHeight / 2);
+    window.scrollTo(0, top)
+  }
+
   render() {
     if (this.props.data.loading) {
       // loading
@@ -12,9 +27,13 @@ class MovieDetail extends React.Component {
       return (<div>An unexpected error occurred</div>)
     }
 
+    const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + this.props.data.media.poster_path;
+
     return (
       <div className="movie-detail">
-        <div className="poster"></div>
+        <div className="poster">
+          <img src={poster_url} className="poster"/>
+        </div>
         <div className="info">
           <div className="title">
             {this.props.data.media.title}
@@ -41,6 +60,7 @@ const MovieDetailQuery = gql`
     media(id: $id) {
       overview,
       title,
+      poster_path
     }
   }
 `
