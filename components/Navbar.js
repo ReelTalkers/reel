@@ -32,7 +32,7 @@ class Navbar extends React.Component {
       <MovieDetail id={this.state.mediaID}/> :
       "";
     return (
-      <div>
+      <div className="navbar-wrapper">
         <div className="navbar">
           <div className="logo">
             <a href="/">
