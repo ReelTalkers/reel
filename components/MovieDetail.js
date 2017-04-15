@@ -13,7 +13,7 @@ class MovieDetail extends React.Component {
     }
 
     return (
-      <div clasName="movie-detail">
+      <div className="movie-detail">
         <div className="poster"></div>
         <div className="info">
           <div className="title">
