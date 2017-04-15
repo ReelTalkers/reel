@@ -3,6 +3,13 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 class MovieDetail extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selectedTab: 'overview',
+    }
+  }
+
   componentDidMount() {
     this.ensureVisible();
   }
@@ -19,6 +26,8 @@ class MovieDetail extends React.Component {
   }
 
   render() {
+    const tabs = ['overview', 'similar', 'cast'];
+
     if (this.props.data.loading) {
       // loading
       return (<div></div>)
@@ -38,7 +47,15 @@ class MovieDetail extends React.Component {
           <div className="title">
             {this.props.data.media.title}
           </div>
-          <div className="tabs"></div>
+          <div className="tabs">
+            {tabs.map(tab => (
+              <div
+                key={tab}
+                className={this.state.selectedTab==tab? "selected" : ""}>
+                {tab.toUpperCase()}
+              </div>
+            ))}
+          </div>
           <div className="description">
             {this.props.data.media.overview}
           </div>
