@@ -1,6 +1,5 @@
 var React = require('react');
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import MovieDetail from './MovieDetail';
 
 class Lolomo extends React.Component {
   constructor() {
@@ -82,7 +81,7 @@ class Lomo extends React.Component {
 
   render() {
     const movieDetail = this.state.isActive?
-      <MovieDetailWithData id={this.state.selectedMovie}/> :
+      <MovieDetail id={this.state.selectedMovie}/> :
       "";
     return (
       <div className="lomo">
@@ -137,52 +136,5 @@ class Movie extends React.Component {
     );
   }
 }
-
-class MovieDetail extends React.Component {
-  render() {
-    if (this.props.data.loading) {
-      // loading
-      return (<div></div>)
-    } else if (this.props.data.error) {
-      // error
-      return (<div>An unexpected error occurred</div>)
-    }
-
-    return (
-      <div clasName="movie-detail">
-        <div className="poster"></div>
-        <div className="info">
-          <div className="title">
-            {this.props.data.media.title}
-          </div>
-          <div className="tabs"></div>
-          <div className="description">
-            {this.props.data.media.overview}
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
-
-MovieDetail.propTypes = {
-  data: React.PropTypes.shape({
-    loading: React.PropTypes.bool,
-    error: React.PropTypes.object,
-  }).isRequired,
-};
-
-const MovieDetailQuery = gql`
-  query MovieDetailQuery($id: String!) {
-    media(id: $id) {
-      overview,
-      title,
-    }
-  }
-`
-
-const MovieDetailWithData = graphql(MovieDetailQuery, {
-    options: ({ id }) => ({ variables: { id } }),
-})(MovieDetail);
 
 export default Lolomo;
