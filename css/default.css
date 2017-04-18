@@ -1,5 +1,5 @@
 body {
-  font-family: HelveticaNeue,Gill Sans,Helvetica,sans-serif;
+  font-family: Helvetica,HelveticaNeue,Gill Sans,sans-serif;
   background-color: #FAFAFA;
   margin: 0px;
 }
@@ -73,7 +73,7 @@ body {
 }
 
 .navbar .search-bar input{
-  font-family: HelveticaNeue;
+  font-family: Helvetica;
   font-size: 14px;
   letter-spacing: 0.3px;
   text-align: center;
@@ -348,7 +348,7 @@ body {
   margin-left: -55px;
   padding-left: 50px;
   padding-bottom: 9px;
-  margin-bottom: -15px;
+  margin-bottom: -10px;
 }
 
 .lolomo .movies::-webkit-scrollbar {
@@ -381,7 +381,7 @@ body {
   border-style: solid;
   border-width: 10px 20px 0px;
   left: -105.85px;
-  top: 29px;
+  top: 28px;
   z-index: 9;
   position: relative;
 }
@@ -389,4 +389,65 @@ body {
 .lolomo .movie img {
   width: 100%;
   height:100%;
+}
+
+/* Movie Detail */
+.movie-detail {
+  display: flex;
+  background-color: #fff;
+}
+
+.movie-detail .poster img {
+  width: 384px;
+	height: 576px;
+  object-fit: cover;
+}
+
+.movie-detail .info {
+  margin-left: 85px;
+  margin-top: 30px;
+  margin-right: 55px;
+}
+
+.movie-detail .title {
+  font-size: 48px;
+	font-weight: 500;
+  margin-bottom: 35px;
+}
+
+.movie-detail .tabs {
+  display: flex;
+  margin-bottom: 45px;
+}
+
+.movie-detail .tabs > * {
+  margin-right: 35px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #848484;
+  cursor: pointer;
+}
+
+.movie-detail .tabs .selected {
+  color: #222426;
+  border-bottom: solid 5px #f5d72f;
+}
+
+.movie-detail .description {
+  color: #848484;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-bottom: 25px;
+}
+
+.movie-detail .additional-info .section {
+  display: flex;
+  font-size: 20px;
+	font-weight: 300;
+}
+
+.movie-detail .additional-info .section .label {
+  color: #848484;
+  margin-right: 5px;
 }
