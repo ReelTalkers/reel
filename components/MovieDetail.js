@@ -25,9 +25,18 @@ class MovieDetail extends React.Component {
     window.scrollTo(0, top)
   }
 
-  render() {
-    const tabs = ['overview', 'similar', 'cast'];
+  getTab(selectedTab) {
+    // use if statement instead of dictionary so we only render if necessary
+    if (selectedTab == 'overview') {
+      return <Overview description={this.props.data.media.overview}/>
+    } else if (selectedTab == 'similar') {
+      return <Similar />
+    } else {
+      return <Cast />
+    }
+  }
 
+  render() {
     if (this.props.data.loading) {
       // loading
       return (<div></div>)
@@ -36,6 +45,8 @@ class MovieDetail extends React.Component {
       return (<div>An unexpected error occurred</div>)
     }
 
+    const tabs = ['overview', 'similar', 'cast'];
+    const tabComponent = this.getTab(this.state.selectedTab, this.props.data.media);
     const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + this.props.data.media.poster_path;
 
     return (
@@ -51,12 +62,13 @@ class MovieDetail extends React.Component {
             {tabs.map(tab => (
               <div
                 key={tab}
-                className={this.state.selectedTab==tab? "selected" : ""}>
+                className={this.state.selectedTab==tab? "selected" : ""}
+                onClick={() => this.setState({selectedTab: tab})}>
                 {tab.toUpperCase()}
               </div>
             ))}
           </div>
-          <Overview description={this.props.data.media.overview}/>
+          {tabComponent}
         </div>
       </div>
     )
@@ -104,6 +116,26 @@ class Overview extends React.Component {
             </div>
           ))}
         </div>
+      </div>
+    );
+  }
+}
+
+class Similar extends React.Component {
+  render() {
+    return (
+      <div>
+        Some similar stuff
+      </div>
+    );
+  }
+}
+
+class Cast extends React.Component {
+  render() {
+    return (
+      <div>
+        Some cast stuff
       </div>
     );
   }
