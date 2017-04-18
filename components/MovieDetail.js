@@ -55,6 +55,7 @@ class MovieDetail extends React.Component {
       <div className="movie-detail">
         <div className="poster">
           <img src={poster_url} className="poster"/>
+          <Rating score={2} mediaID={this.props.id}/>
         </div>
         <div className="info">
           <div className="title">
@@ -117,9 +118,6 @@ class Overview extends React.Component {
               <div className="list">{info[1]}</div>
             </div>
           ))}
-        </div>
-        <div>
-          <Rating mediaID={this.props.mediaID}/>
         </div>
       </div>
     );

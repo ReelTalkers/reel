@@ -397,10 +397,20 @@ body {
   background-color: #fff;
 }
 
+.movie-detail .poster {
+  position: relative;
+}
+
 .movie-detail .poster img {
   width: 384px;
 	height: 576px;
   object-fit: cover;
+}
+
+.movie-detail .poster .rating {
+  position: absolute;
+  right: 15;
+  bottom: 15;
 }
 
 .movie-detail .info {
@@ -460,11 +470,9 @@ body {
 .rating .toolbox {
   background: #fff;
   height: 48px;
-  width: 240px;
-  display: flex;
+  display: inline-block;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 2px 2px rgba(0, 0, 0, .15);
   border-radius: 40px;
-  align-items: center;
   padding: 2px;
 }
 
@@ -482,8 +490,12 @@ body {
   flex: 1;
 }
 
-.rating [class*="reaction-"]:hover {
-  transform: scale(1) translateY(-8px);
+.rating [class*="reaction-"].not-selected {
+  display: none;
+}
+
+.rating .toolbox:hover .not-selected {
+  display: inline-block;
 }
 
 .rating .reaction-1 { background-image: url(/assets/poop.png); }
@@ -492,7 +504,13 @@ body {
 .rating .reaction-4 { background-image: url(/assets/smile.png); }
 .rating .reaction-5 { background-image: url(/assets/heart-eyes.png); }
 
-.rating [class*="reaction-"]:hover .legend {
+.rating [class*="reaction-"]:hover,
+.rating .toolbox:hover [class*="reaction-"].selected {
+  transform: scale(1) translateY(-8px);
+}
+
+.rating [class*="reaction-"]:hover .legend,
+.rating .toolbox:hover [class*="reaction-"].selected .legend {
   opacity: 1;
 }
 
