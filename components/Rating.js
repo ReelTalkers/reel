@@ -55,8 +55,8 @@ class Rating extends Component {
 }
 
 const submitRating = gql`
-  mutation createReview($mediaId: ID!, $score: Int!) {
-    createReview(userId: "1", mediaId: $mediaId, score: $score) {
+  mutation reviewMedia($mediaId: ID!, $score: Int!) {
+    reviewMedia(userId: "1", mediaId: $mediaId, score: $score) {
       id
     }
   }
