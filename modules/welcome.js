@@ -28,7 +28,7 @@ class Welcome extends React.Component {
     }
     return(
       <div>
-        <a href="http://localhost:3000/auth/facebook">Login</a>
+        <a href="http://reeltalk.student.cwru.edu:3000/auth/facebook">Login</a>
       </div>
     );
   }

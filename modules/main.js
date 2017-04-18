@@ -8,7 +8,7 @@ import Home from './home.js';
 
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:3000/graphql',
+    uri: 'http://reeltalk.student.cwru.edu:3000/graphql',
     opts: {
       credentials: 'include',
     },
