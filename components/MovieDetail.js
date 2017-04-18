@@ -37,11 +37,6 @@ class MovieDetail extends React.Component {
     }
 
     const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + this.props.data.media.poster_path;
-    const additionalInfo = [
-      ["Available On", "Netflix"],
-      ["Director", "Your Dad"],
-      ["Starring", "Bradley Cooper, Jennifer Laurence, Waka Flocka"],
-    ]
 
     return (
       <div className="movie-detail">
@@ -61,17 +56,7 @@ class MovieDetail extends React.Component {
               </div>
             ))}
           </div>
-          <div className="description">
-            {this.props.data.media.overview}
-          </div>
-          <div className="additional-info">
-            {additionalInfo.map(info => (
-              <div className="section">
-                <div className="label">{info[0]}: </div>
-                <div className="list">{info[1]}</div>
-              </div>
-            ))}
-          </div>
+          <Overview description={this.props.data.media.overview}/>
         </div>
       </div>
     )
@@ -98,6 +83,31 @@ const MovieDetailQuery = gql`
 const MovieDetailWithData = graphql(MovieDetailQuery, {
     options: ({ id }) => ({ variables: { id } }),
 })(MovieDetail);
+
+class Overview extends React.Component {
+  render() {
+    const additionalInfo = [
+      ["Available On", "Netflix"],
+      ["Director", "Your Dad"],
+      ["Starring", "Bradley Cooper, Jennifer Laurence, Waka Flocka"],
+    ]
+    return (
+      <div>
+        <div className="description">
+          {this.props.description}
+        </div>
+        <div className="additional-info">
+          {additionalInfo.map(info => (
+            <div className="section">
+              <div className="label">{info[0]}: </div>
+              <div className="list">{info[1]}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
 
 
 export default MovieDetailWithData;
