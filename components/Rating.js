@@ -6,13 +6,35 @@ class Rating extends Component {
     this.props.submit(this.props.mediaID, score);
   }
 
+  renderButton(word, score) {
+    return (
+      <button
+        key={score}
+        className={"reaction-"+score}
+        onClick={() => this.score(score)}>
+        <span className="legend">
+          {word}
+        </span>
+      </button>
+    );
+  }
+
   render() {
     const scores = [1,2,3,4,5];
+    const reactions = [
+      { word: "Terrible", score: 1 },
+      { word: "Bad", score: 2 },
+      { word: "Ok", score: 3 },
+      { word: "Good", score: 4 },
+      { word: "Fantastic", score: 5 },
+    ];
     return (
-      <div>
-        {scores.map(score => (
-          <button key={score} onClick={() => this.score(score)}>{score}</button>
-        ))}
+      <div className="rating">
+        <div className="toolbox">
+          {reactions.map(reaction => (
+            this.renderButton(reaction.word, reaction.score)
+          ))}
+        </div>
       </div>
     );
   }

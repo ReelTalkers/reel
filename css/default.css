@@ -441,6 +441,10 @@ body {
   margin-bottom: 25px;
 }
 
+.movie-detail .additional-info {
+  margin-bottom: 25px;
+}
+
 .movie-detail .additional-info .section {
   display: flex;
   font-size: 20px;
@@ -450,4 +454,60 @@ body {
 .movie-detail .additional-info .section .label {
   color: #848484;
   margin-right: 5px;
+}
+
+/* Rating */
+.rating .toolbox {
+  background: #fff;
+  height: 48px;
+  width: 240px;
+  display: flex;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .08), 0 2px 2px rgba(0, 0, 0, .15);
+  border-radius: 40px;
+  align-items: center;
+  padding: 2px;
+}
+
+.rating [class*="reaction-"] {
+  border: none;
+  cursor: pointer;
+  height: 48px;
+  width: 48px;
+  transition: transform 200ms ease;
+  transform: scale(.8);
+  background-color: transparent;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 1;
+}
+
+.rating [class*="reaction-"]:hover {
+  transform: scale(1) translateY(-8px);
+}
+
+.rating .reaction-1 { background-image: url(/assets/poop.png); }
+.rating .reaction-2 { background-image: url(/assets/sleepy.png); }
+.rating .reaction-3 { background-image: url(/assets/neutral.png); }
+.rating .reaction-4 { background-image: url(/assets/smile.png); }
+.rating .reaction-5 { background-image: url(/assets/heart-eyes.png); }
+
+.rating [class*="reaction-"]:hover .legend {
+  opacity: 1;
+}
+
+.rating .legend {
+  background: rgba(0, 0, 0, .75);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 0 6px;
+  transition: opacity 50ms ease;
+  position: absolute;
+  text-align: center;
+  top: -25px;
+  transform: translateX(-50%);
+  opacity: 0;
 }
