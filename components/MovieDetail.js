@@ -1,6 +1,9 @@
 var React = require('react');
+import ReactDOM from 'react-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+
+import Rating from './Rating';
 
 class MovieDetail extends React.Component {
   constructor() {
@@ -19,8 +22,7 @@ class MovieDetail extends React.Component {
   }
 
   ensureVisible() {
-    const movieDetail = React.findDOMNode(this);
-    console.log(movieDetail.offsetHeight);
+    const movieDetail = ReactDOM.findDOMNode(this);
     var top = movieDetail.offsetTop - ( window.innerHeight / 2 ) + (movieDetail.offsetHeight / 2);
     window.scrollTo(0, top)
   }
@@ -28,7 +30,7 @@ class MovieDetail extends React.Component {
   getTab(selectedTab) {
     // use if statement instead of dictionary so we only render if necessary
     if (selectedTab == 'overview') {
-      return <Overview description={this.props.data.media.overview}/>
+      return <Overview mediaID={this.props.id} description={this.props.data.media.overview}/>
     } else if (selectedTab == 'similar') {
       return <Similar />
     } else {
@@ -110,11 +112,14 @@ class Overview extends React.Component {
         </div>
         <div className="additional-info">
           {additionalInfo.map(info => (
-            <div className="section">
+            <div key={info[0]} className="section">
               <div className="label">{info[0]}: </div>
               <div className="list">{info[1]}</div>
             </div>
           ))}
+        </div>
+        <div>
+          <Rating mediaID={this.props.mediaID}/>
         </div>
       </div>
     );
