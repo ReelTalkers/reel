@@ -31,6 +31,16 @@ class Navbar extends React.Component {
     const movieDetail = this.state.displayMedia?
       <MovieDetail id={this.state.mediaID}/> :
       "";
+    const searchProps = {
+      value: this.state.searchValue,
+      displayMedia: this.displayMedia.bind(this),
+      onChange: this.updateSearch.bind(this),
+      autoFocus: this.props.searchForUsers
+    }
+    const searchBar = this.props.searchForUsers?
+      <SearchBarWithUserData {...searchProps}/> :
+      <SearchBarWithMovieData {...searchProps}/>
+
     return (
       <div className="navbar-wrapper">
         <div className="navbar">
@@ -39,10 +49,7 @@ class Navbar extends React.Component {
               <img src="/assets/navbar-logo.png" alt="Reeltalk"/>
             </a>
           </div>
-          <SearchBarWithData
-            value={this.state.searchValue}
-            displayMedia={this.displayMedia.bind(this)}
-            onChange={this.updateSearch.bind(this)}/>
+          {searchBar}
           <div className="user-name">
             andrew
           </div>
@@ -156,7 +163,8 @@ class SearchBar extends React.Component {
     const inputProps = {
       placeholder: 'Search',
       value,
-      onChange: this.onChange.bind(this)
+      onChange: this.onChange.bind(this),
+      autoFocus: this.props.autoFocus
     };
 
     return (
@@ -176,8 +184,8 @@ class SearchBar extends React.Component {
   }
 }
 
-const SearchQuery = gql`
-  query SearchQuery($value: String!) {
+const SearchMovieQuery = gql`
+  query SearchMovieQuery($value: String!) {
     search_media(title: $value, quantity: 20) {
       id,
       title,
@@ -186,7 +194,22 @@ const SearchQuery = gql`
   }
 `
 
-const SearchBarWithData = graphql(SearchQuery, {
+const SearchBarWithMovieData = graphql(SearchMovieQuery, {
+    skip: (ownProps) => ownProps.value == "",
+    options: ({ value }) => ({ variables: { value } }),
+})(SearchBar);
+
+const SearchUserQuery = gql`
+  query SearchUserQuery($value: String!) {
+    search_media(title: $value, quantity: 20) {
+      id,
+      title,
+      poster_path,
+    }
+  }
+`
+
+const SearchBarWithUserData = graphql(SearchUserQuery, {
     skip: (ownProps) => ownProps.value == "",
     options: ({ value }) => ({ variables: { value } }),
 })(SearchBar);

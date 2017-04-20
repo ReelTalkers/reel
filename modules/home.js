@@ -11,6 +11,28 @@ import recommendations from '../testing/dummy_data.js';
 class Home extends React.Component {
   constructor() {
     super();
+    this.state = {
+      searchForUsers: false,
+      searchBarActive: false
+    }
+  }
+
+  searchUsers() {
+    this.setState({
+      searchForUsers: true,
+      searchBarActive: true,
+      lastClick: "users"
+    });
+  }
+
+  clickBackground() {
+    if (this.state.lastClick == "users") {
+      this.setState({
+        searchForUsers: false,
+        searchBarActive: false,
+        lastClick: "background"
+      })
+    }
   }
 
   render() {
@@ -19,9 +41,13 @@ class Home extends React.Component {
       "data": JSON.parse(recommendations)
     };
     return (
-      <div className="home">
-        <Navbar/>
-        <Group user_picture={this.props.user_picture}/>
+      <div onClick={() => this.clickBackground()} className="home">
+        <Navbar
+          searchForUsers={this.state.searchForUsers}
+          searchBarActive={this.state.searchBarActive}/>
+        <Group
+          searchUsers={this.searchUsers.bind(this)}
+          user_picture={this.props.user_picture}/>
         <Lolomo recommendations={fakeProps.data.recommendations}/>
       </div>
     );
