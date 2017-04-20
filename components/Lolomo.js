@@ -33,8 +33,8 @@ class Lolomo extends React.Component {
       <div className="lolomo">
         {this.props.recommendations.map(genre =>
           <Lomo
-            key={genre.genre}
-            title={genre.genre}
+            key={genre.name}
+            title={genre.name}
             movies={genre.media}
             enableActiveDetail={this.enableActiveDetail.bind(this)}
             disableActiveDetail={this.disableActiveDetail.bind(this)}

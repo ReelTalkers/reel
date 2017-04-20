@@ -50,10 +50,6 @@ class Home extends React.Component {
   }
 
   render() {
-    // fake query for now
-    const fakeProps = {
-      "data": JSON.parse(recommendations)
-    };
     return (
       <div onClick={() => this.clickBackground()} className="home">
         <Navbar
@@ -65,7 +61,10 @@ class Home extends React.Component {
           user_picture={this.props.user_picture}
           groupMembers={this.state.groupMembers}
         />
-        <Lolomo recommendations={fakeProps.data.recommendations}/>
+        <RecommendationsWithData
+          groupMembersIds={this.state.groupMembers.map(user => user.id)}
+          genres={["Top", "Comedy", "Drama"]}
+        />
       </div>
     );
   }
@@ -85,5 +84,43 @@ const HomeWithData = graphql(addUserToGroup, {
     addUserToGroup: (id) => mutate({ variables: { id } }),
   }),
 })(Home);
+
+class Recommendations extends React.Component {
+  render() {
+    if (this.props.data.loading) {
+      // loading
+      return (<div>Loading</div>)
+    } else if (this.props.data.error) {
+      // error
+      return (<div>An unexpected error occurred</div>)
+    }
+    return (
+      <Lolomo recommendations={this.props.data.recommendations}/>
+    )
+  }
+}
+
+Recommendations.propTypes = {
+  data: React.PropTypes.shape({
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.object,
+  }).isRequired,
+};
+
+const RecommendationsQuery = gql`
+  query RecommendationsQuery($groupMembersIds: [ID]!, $genres: [String]!) {
+    recommendations(userIds: $groupMembersIds, genres: $genres, quantity: 10) {
+      name,
+      media {
+        id,
+        poster_path
+      }
+    }
+  }
+`
+
+const RecommendationsWithData = graphql(RecommendationsQuery, {
+    options: ({ groupMembersIds, genres }) => ({ variables: { groupMembersIds, genres } }),
+})(Recommendations);
 
 export default HomeWithData;
