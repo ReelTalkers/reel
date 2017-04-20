@@ -158,7 +158,7 @@ body {
   color: #818488;
 }
 
-.navbar .suggestion .info .director {
+.navbar .suggestion .info .subtitle {
   color: #c9c8cd;
 }
 
@@ -166,10 +166,25 @@ body {
   margin-right: 10px;
 }
 
-.navbar .suggestion .image img {
+.navbar .suggestion .image.media img {
   width: 30px;
   height: 30px;
   object-fit: cover;
+}
+
+.navbar .suggestion .image.user {
+  width: 30px;
+  height: 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.navbar .suggestion .image.user img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
 }
 
 .hidden {

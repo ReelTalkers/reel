@@ -35,7 +35,7 @@ class Navbar extends React.Component {
       value: this.state.searchValue,
       displayMedia: this.displayMedia.bind(this),
       onChange: this.updateSearch.bind(this),
-      autoFocus: this.props.searchForUsers
+      searchUsers: this.props.searchForUsers
     }
     const searchBar = this.props.searchForUsers?
       <SearchBarWithUserData {...searchProps}/> :
@@ -62,24 +62,70 @@ class Navbar extends React.Component {
 
 const getSuggestionValue = suggestion => suggestion.title;
 
-const renderSuggestion = suggestion => {
-  const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + suggestion.poster_path;
-  const fallback_image = "/assets/Icon-29@2x.png"
+const getSuggestion = (imageUrl, title, subtitle, imageClass) => {
+  const fallbackImage = "/assets/Icon-29@2x.png";
   return (
     <div className="suggestion">
       <div className="image">
-        <img src={poster_url}
+        <img
+          className={imageClass}
+          src={imageUrl}
           onError={ ev => {
                       ev.onError=null;
-                      ev.target.src=fallback_image
+                      ev.target.src=fallbackImage
                   }}/>
       </div>
       <div className="info">
         <div className="title">
-          {suggestion.title}
+          {title}
         </div>
-        <div className="director">
+        <div className="subtitle">
           urmom
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const MEDIA_TYPE = 'Media';
+const USER_TYPE = 'User';
+
+const renderSuggestion = suggestion => {
+  var imageUrl = ""
+  var title = ""
+  var subtitle = ""
+  var imageClass = ""
+
+  if (suggestion.__typename == MEDIA_TYPE) {
+    imageUrl = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + suggestion.poster_path;
+    title = suggestion.title;
+    subtitle = "urmom";
+    imageClass = "media";
+  } else if (suggestion.__typename == USER_TYPE) {
+    imageUrl = suggestion.smallPhoto;
+    title = suggestion.fullName;
+    subtitle = suggestion.userName;
+    imageClass = "user";
+  }
+
+  const fallbackImage = "/assets/Icon-29@2x.png";
+  return (
+    <div className="suggestion">
+      <div className={"image "+imageClass}>
+        <img
+          className={imageClass}
+          src={imageUrl}
+          onError={ ev => {
+                      ev.onError=null;
+                      ev.target.src=fallbackImage
+                  }}/>
+      </div>
+      <div className="info">
+        <div className="title">
+          {title}
+        </div>
+        <div className="subtitle">
+          {subtitle}
         </div>
       </div>
     </div>
@@ -143,9 +189,12 @@ class SearchBar extends React.Component {
     if (typeof this.props.data != 'undefined'
     && !this.props.data.loading
     && this.state.updateSuggestions) {
+      const suggestions = this.props.searchUsers?
+        this.props.data.search_users :
+        this.props.data.search_media;
       this.state = {
         updateSuggestions:false,
-        suggestions: this.props.data.search_media
+        suggestions: suggestions
       }
     }
     return this.state.suggestions;
@@ -164,7 +213,7 @@ class SearchBar extends React.Component {
       placeholder: 'Search',
       value,
       onChange: this.onChange.bind(this),
-      autoFocus: this.props.autoFocus
+      autoFocus: this.props.searchUsers
     };
 
     return (
@@ -201,10 +250,11 @@ const SearchBarWithMovieData = graphql(SearchMovieQuery, {
 
 const SearchUserQuery = gql`
   query SearchUserQuery($value: String!) {
-    search_media(title: $value, quantity: 20) {
+    search_users(fullName: $value, quantity: 20) {
       id,
-      title,
-      poster_path,
+      fullName,
+      userName,
+      smallPhoto
     }
   }
 `
