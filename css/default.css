@@ -172,19 +172,11 @@ body {
   object-fit: cover;
 }
 
-.navbar .suggestion .image.user {
+.navbar .suggestion .image.user img {
+  object-fit: cover;
+  border-radius: 50%;
   width: 30px;
   height: 30px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.navbar .suggestion .image.user img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
 }
 
 .hidden {
@@ -264,10 +256,6 @@ body {
 }
 
 .circular-photo .inner-circle {
-  width: 70px;
-  height: 70px;
-  position: relative;
-  overflow: hidden;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -276,10 +264,10 @@ body {
 }
 
 .circular-photo .inner-circle img {
-  display: inline;
-  margin: 0 auto;
-  height: 100%;
-  width: auto;
+  object-fit: cover;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
 }
 
 .group .add {
