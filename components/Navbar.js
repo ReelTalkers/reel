@@ -178,7 +178,7 @@ class SearchBar extends React.Component {
 
 const SearchQuery = gql`
   query SearchQuery($value: String!) {
-    search_media(title: $value) {
+    search_media(title: $value, quantity: 20) {
       id,
       title,
       poster_path,
