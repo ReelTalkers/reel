@@ -7,17 +7,19 @@ class Group extends React.Component {
 // Make profile photo its own react class
 // make circle its own react class
   render() {
+    const groupName = this.props.groupMembers.length > 0? "You & Friends" : "You";
     return (
       <div className="group">
         <div className="circles">
           <div className="photos">
             <CircularPhoto photo_url={this.props.user_picture}/>
-            <CircularPhoto photo_url="https://lh3.googleusercontent.com/-R9i1ENT-FLM/AAAAAAAAAAI/AAAAAAAAADA/c9MxnVlrYGs/photo.jpg"/>
-            <CircularPhoto photo_url="https://www.wired.com/wp-content/uploads/2016/02/KanyeWest-42-69483240.jpg"/>
+            {this.props.groupMembers.map(groupMember => (
+              <CircularPhoto key={groupMember.id} photo_url={groupMember.smallPhoto}/>
+            ))}
           </div>
           <AddButton onClick={() => this.props.searchUsers()}/>
         </div>
-        <div className="group-name">You & Friends</div>
+        <div className="group-name">{groupName}</div>
       </div>
     );
   }

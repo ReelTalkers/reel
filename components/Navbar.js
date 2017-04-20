@@ -34,6 +34,7 @@ class Navbar extends React.Component {
     const searchProps = {
       value: this.state.searchValue,
       displayMedia: this.displayMedia.bind(this),
+      addUserToGroup: this.props.addUserToGroup,
       onChange: this.updateSearch.bind(this),
       searchUsers: this.props.searchForUsers
     }
@@ -60,35 +61,17 @@ class Navbar extends React.Component {
   }
 }
 
-const getSuggestionValue = suggestion => suggestion.title;
-
-const getSuggestion = (imageUrl, title, subtitle, imageClass) => {
-  const fallbackImage = "/assets/Icon-29@2x.png";
-  return (
-    <div className="suggestion">
-      <div className="image">
-        <img
-          className={imageClass}
-          src={imageUrl}
-          onError={ ev => {
-                      ev.onError=null;
-                      ev.target.src=fallbackImage
-                  }}/>
-      </div>
-      <div className="info">
-        <div className="title">
-          {title}
-        </div>
-        <div className="subtitle">
-          urmom
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const MEDIA_TYPE = 'Media';
 const USER_TYPE = 'User';
+
+const getSuggestionValue = suggestion => {
+  if (suggestion.__typename == MEDIA_TYPE) {
+    return suggestion.title;
+  } else if (suggestion.__typename == USER_TYPE) {
+    return "";
+  }
+  return suggestion;
+}
 
 const renderSuggestion = suggestion => {
   var imageUrl = ""
@@ -201,7 +184,12 @@ class SearchBar extends React.Component {
   }
 
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
-    this.props.displayMedia(suggestion.id)
+    console.log(suggestion.__typename);
+    if (suggestion.__typename == MEDIA_TYPE) {
+      this.props.displayMedia(suggestion.id);
+    } else if (suggestion.__typename == USER_TYPE) {
+      this.props.addUserToGroup(suggestion.id);
+    }
   }
 
   render() {
