@@ -12,7 +12,7 @@ class Group extends React.Component {
       <div className="group">
         <div className="circles">
           <div className="photos">
-            <CircularPhoto photo_url={this.props.user_picture}/>
+            <CircularPhoto photo_url={this.props.userPicture}/>
             {this.props.groupMembers.map(groupMember => (
               <CircularPhoto key={groupMember.id} photo_url={groupMember.smallPhoto}/>
             ))}

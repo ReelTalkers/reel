@@ -52,7 +52,7 @@ class Navbar extends React.Component {
           </div>
           {searchBar}
           <div className="user-name">
-            andrew
+            {this.props.fullName}
           </div>
         </div>
         {movieDetail}

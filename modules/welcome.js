@@ -24,7 +24,8 @@ class Welcome extends React.Component {
     if (this.props.data.logged_in) {
       return(
         <Home
-          user_picture={this.props.data.current_user.smallPhoto}
+          fullName={this.props.data.current_user.fullName}
+          userPicture={this.props.data.current_user.smallPhoto}
           groupMembers={this.props.data.current_user.groupMembers}/>
       );
     }
@@ -48,6 +49,7 @@ const CurrentUserQuery = gql`
   query CurrentUserQuery {
     logged_in,
     current_user {
+      fullName,
       smallPhoto,
       groupMembers {
         id,

@@ -55,10 +55,12 @@ class Home extends React.Component {
         <Navbar
           searchForUsers={this.state.searchForUsers}
           searchBarActive={this.state.searchBarActive}
-          addUserToGroup={this.addUserToGroup.bind(this)}/>
+          addUserToGroup={this.addUserToGroup.bind(this)}
+          fullName={this.props.fullName}
+        />
         <Group
           searchUsers={this.searchUsers.bind(this)}
-          user_picture={this.props.user_picture}
+          userPicture={this.props.userPicture}
           groupMembers={this.state.groupMembers}
         />
         <RecommendationsWithData
