@@ -56,7 +56,7 @@ class Rating extends Component {
 
 const submitRating = gql`
   mutation reviewMedia($mediaId: ID!, $score: Int!) {
-    reviewMedia(userId: "1", mediaId: $mediaId, score: $score) {
+    reviewMedia(mediaId: $mediaId, score: $score) {
       id
     }
   }
