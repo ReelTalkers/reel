@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import CircularPhoto from './Group';
 import Rating from './Rating';
 
 class MovieDetail extends React.Component {
@@ -137,8 +138,13 @@ class Similar extends React.Component {
 class Cast extends React.Component {
   render() {
     return (
-      <div>
-        Some cast stuff
+      <div className="cast_list">
+        <div className="actorPicture">
+          <CircularPhoto url="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiS5pWby7PTAhVJ74MKHWMRBZsQjRwIBw&url=http%3A%2F%2Fmuppet.wikia.com%2Fwiki%2FBig_Bird&psig=AFQjCNFLc3Lk-L93QxvnqQxtUzRd5iCN0Q&ust=1492796700698567"/>
+        </div>
+        <div className="actorName">
+          Pappa John
+        </div>
       </div>
     );
   }
