@@ -3,6 +3,7 @@ import { gql, graphql } from 'react-apollo';
 
 class Rating extends Component {
   componentWillMount() {
+    // TODO: fix this http://stackoverflow.com/questions/28785106/reactjs-why-is-passing-the-component-initial-state-a-prop-an-anti-pattern
     this.state = {
       score: this.props.score,
     }
