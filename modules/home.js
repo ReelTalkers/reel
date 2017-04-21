@@ -69,6 +69,7 @@ class Home extends React.Component {
         <Group
           searchUsers={this.searchUsers.bind(this)}
           userPicture={this.props.userPicture}
+          fullName={this.props.fullName}
           groupMembers={this.state.groupMembers}
           removeUserFromGroup={this.removeUserFromGroup.bind(this)}
         />
@@ -85,6 +86,7 @@ const addUserToGroup = gql`
   mutation addUserToGroup($id: ID!) {
     addUserToGroup(id: $id) {
       id,
+      fullName,
       smallPhoto
     }
   }
@@ -94,6 +96,7 @@ const removeUserFromGroup = gql`
   mutation removeUserFromGroup($id: ID!) {
     removeUserFromGroup(id: $id) {
       id,
+      fullName,
       smallPhoto
     }
   }

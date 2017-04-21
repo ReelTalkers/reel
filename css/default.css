@@ -251,6 +251,7 @@ body {
   display: inline-block;
   margin-left: -31px;
   transition: transform 0.2s ease-out;
+  position: relative;
 }
 
 .group .circular-photo .inner-circle {
@@ -561,11 +562,13 @@ body {
 }
 
 .rating [class*="reaction-"]:hover .legend,
-.rating .toolbox:hover [class*="reaction-"].selected .legend {
+.rating .toolbox:hover [class*="reaction-"].selected .legend,
+.circular-photo:hover .legend {
   opacity: 1;
 }
 
-.rating .legend {
+.rating .legend,
+.circular-photo .legend {
   background: rgba(0, 0, 0, .75);
   border-radius: 10px;
   color: #fff;
@@ -579,4 +582,5 @@ body {
   top: -25px;
   transform: translateX(-50%);
   opacity: 0;
+  white-space: nowrap;
 }

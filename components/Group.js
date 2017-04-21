@@ -14,11 +14,13 @@ class Group extends React.Component {
           <div className="photos">
             <CircularPhoto
               photo_url={this.props.userPicture}
+              displayName={this.props.fullName}
               removeUserFromGroup={() => null}/>
             {this.props.groupMembers.map(groupMember => (
               <CircularPhoto
                 key={groupMember.id}
                 userId={groupMember.id}
+                displayName={groupMember.fullName}
                 className="group-member"
                 photo_url={groupMember.smallPhoto}
                 removeUserFromGroup={this.props.removeUserFromGroup}/>
@@ -38,6 +40,9 @@ class CircularPhoto extends React.Component {
       <div
         onClick={() => this.props.removeUserFromGroup(this.props.userId)}
         className={"circular-photo "+this.props.className}>
+        <span className="legend">
+          {this.props.displayName}
+        </span>
         <div className="inner-circle">
           <img src={this.props.photo_url}/>
         </div>
