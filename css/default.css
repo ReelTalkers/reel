@@ -141,6 +141,7 @@ body {
   letter-spacing: 0.3px;
   padding: 20px 10px;
   border-top: solid 1px #edeeef;
+  cursor: pointer;
 }
 
 .navbar .react-autosuggest__suggestion--first .suggestion {
@@ -258,6 +259,10 @@ body {
   background-color: white;
 }
 
+.group .circular-photo.group-member {
+  cursor: pointer;
+}
+
 .group .circular-photo.group-member:hover img {
   filter: opacity(40%);
   -webkit-filter: opacity(40%);
@@ -291,6 +296,7 @@ body {
   display: inline-block;
   background-color: white;
   border: solid 2px #c1c2c2;
+  cursor: pointer;
   width: 70px;
   height: 70px;
   -webkit-border-radius: 50%;
@@ -392,6 +398,7 @@ body {
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
   display: inline-block;
   margin: 5px;
+  cursor: pointer;
 }
 
 .lolomo .movie.active {
