@@ -253,11 +253,22 @@ body {
 
 .group .circular-photo .inner-circle {
   border: solid 3px #fafafa;
+  position: relative;
+  background-color: white;
 }
 
 .group .circular-photo.group-member:hover img {
-  filter: brightness(0.6);
-  -webkit-filter: brightness(0.6);
+  filter: opacity(40%);
+  -webkit-filter: opacity(40%);
+}
+
+.group .circular-photo.group-member:hover .inner-circle:after {
+  content: "×";
+  position: absolute;
+  left: 21px;
+  top: 1px;
+  color: #F5D72F;
+  font-size: 50;
 }
 
 .circular-photo .inner-circle {
