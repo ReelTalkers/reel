@@ -82,7 +82,7 @@ const renderSuggestion = suggestion => {
   if (suggestion.__typename == MEDIA_TYPE) {
     imageUrl = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + suggestion.poster_path;
     title = suggestion.title;
-    subtitle = "urmom";
+    subtitle = suggestion.directors.map(director => director.person.name).join(", ");
     imageClass = "media";
   } else if (suggestion.__typename == USER_TYPE) {
     imageUrl = suggestion.smallPhoto;
@@ -227,6 +227,11 @@ const SearchMovieQuery = gql`
       id,
       title,
       poster_path,
+      directors {
+        person {
+          name
+        }
+      },
     }
   }
 `

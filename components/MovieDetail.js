@@ -124,7 +124,7 @@ class Overview extends React.Component {
   render() {
     const additionalInfo = [
       ["Available On", "Netflix"],
-      ["Director", this.props.directors],
+      ["Director", this.props.directors.join(", ")],
       ["Starring", this.props.cast.join(", ")],
     ]
     console.log(this.props.directors)
