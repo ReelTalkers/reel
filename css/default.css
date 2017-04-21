@@ -410,6 +410,14 @@ body {
   background-color: #fff;
 }
 
+.movie-detail-loading {
+  height: 576px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .movie-detail .poster {
   position: relative;
 }

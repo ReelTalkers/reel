@@ -45,7 +45,11 @@ class MovieDetail extends React.Component {
   render() {
     if (this.props.data.loading) {
       // loading
-      return (<div></div>)
+      return (
+        <div className="movie-detail-loading">
+          <img src="/assets/Loading.svg"/>
+        </div>
+      )
     } else if (this.props.data.error) {
       // error
       return (<div>An unexpected error occurred</div>)
