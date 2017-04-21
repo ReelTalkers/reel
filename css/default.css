@@ -255,6 +255,11 @@ body {
   border: solid 3px #fafafa;
 }
 
+.group .circular-photo.group-member:hover img {
+  filter: brightness(0.6);
+  -webkit-filter: brightness(0.6);
+}
+
 .circular-photo .inner-circle {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

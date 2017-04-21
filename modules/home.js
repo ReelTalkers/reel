@@ -1,5 +1,5 @@
 var React = require('react');
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import Lolomo from '../components/Lolomo.js';
@@ -49,6 +49,14 @@ class Home extends React.Component {
     });
   }
 
+  removeUserFromGroup(userId) {
+    this.props.removeUserFromGroup(userId).then(response => {
+      this.setState({
+        groupMembers: response.data.removeUserFromGroup
+      });
+    });
+  }
+
   render() {
     return (
       <div onClick={() => this.clickBackground()} className="home">
@@ -62,6 +70,7 @@ class Home extends React.Component {
           searchUsers={this.searchUsers.bind(this)}
           userPicture={this.props.userPicture}
           groupMembers={this.state.groupMembers}
+          removeUserFromGroup={this.removeUserFromGroup.bind(this)}
         />
         <RecommendationsWithData
           groupMembersIds={this.state.groupMembers.map(user => user.id)}
@@ -81,11 +90,33 @@ const addUserToGroup = gql`
   }
 `;
 
+const removeUserFromGroup = gql`
+  mutation removeUserFromGroup($id: ID!) {
+    removeUserFromGroup(id: $id) {
+      id,
+      smallPhoto
+    }
+  }
+`;
+
 const HomeWithData = graphql(addUserToGroup, {
   props: ({ mutate }) => ({
     addUserToGroup: (id) => mutate({ variables: { id } }),
   }),
 })(Home);
+
+const HomeWithMutations = compose(
+  graphql(addUserToGroup, {
+    props: ({ mutate }) => ({
+      addUserToGroup: (id) => mutate({ variables: { id } }),
+    }),
+  }),
+  graphql(removeUserFromGroup, {
+    props: ({ mutate }) => ({
+      removeUserFromGroup: (id) => mutate({ variables: { id } }),
+    }),
+  })
+)(Home);
 
 class Recommendations extends React.Component {
   render() {
@@ -125,4 +156,4 @@ const RecommendationsWithData = graphql(RecommendationsQuery, {
     options: ({ groupMembersIds, genres }) => ({ variables: { groupMembersIds, genres } }),
 })(Recommendations);
 
-export default HomeWithData;
+export default HomeWithMutations;

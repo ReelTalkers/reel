@@ -12,9 +12,16 @@ class Group extends React.Component {
       <div className="group">
         <div className="circles">
           <div className="photos">
-            <CircularPhoto photo_url={this.props.userPicture}/>
+            <CircularPhoto
+              photo_url={this.props.userPicture}
+              removeUserFromGroup={() => null}/>
             {this.props.groupMembers.map(groupMember => (
-              <CircularPhoto key={groupMember.id} photo_url={groupMember.smallPhoto}/>
+              <CircularPhoto
+                key={groupMember.id}
+                userId={groupMember.id}
+                className="group-member"
+                photo_url={groupMember.smallPhoto}
+                removeUserFromGroup={this.props.removeUserFromGroup}/>
             ))}
           </div>
           <AddButton onClick={() => this.props.searchUsers()}/>
@@ -28,7 +35,9 @@ class Group extends React.Component {
 class CircularPhoto extends React.Component {
   render() {
     return (
-      <div className="circular-photo">
+      <div
+        onClick={() => this.props.removeUserFromGroup(this.props.userId)}
+        className={"circular-photo "+this.props.className}>
         <div className="inner-circle">
           <img src={this.props.photo_url}/>
         </div>
