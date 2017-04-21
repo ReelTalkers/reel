@@ -9,6 +9,7 @@ class MovieDetail extends React.Component {
   constructor() {
     super();
     this.state = {
+      display: true,
       selectedTab: 'overview',
     }
   }
@@ -42,7 +43,19 @@ class MovieDetail extends React.Component {
     }
   }
 
+  close() {
+    if (this.props.close) {
+      this.props.close();
+    }
+    this.setState({
+      display: false
+    });
+  }
+
   render() {
+    if (!this.state.display) {
+      return (<div></div>)
+    }
     if (this.props.data.loading) {
       // loading
       return (
@@ -65,6 +78,9 @@ class MovieDetail extends React.Component {
 
     return (
       <div className="movie-detail">
+        <div onClick={() => this.close()}className="close-button">
+          ×
+        </div>
         <div className="poster">
           <img src={poster_url} className="poster"/>
           <Rating score={score} mediaID={this.props.id}/>

@@ -27,9 +27,17 @@ class Navbar extends React.Component {
     })
   }
 
+  closeMovieDetail() {
+    this.setState({
+      searchValue: "",
+    })
+  }
+
   render() {
     const movieDetail = this.state.displayMedia?
-      <MovieDetail id={this.state.mediaID}/> :
+      <MovieDetail
+        close={this.closeMovieDetail.bind(this)}
+        id={this.state.mediaID}/> :
       "";
     const searchProps = {
       value: this.state.searchValue,

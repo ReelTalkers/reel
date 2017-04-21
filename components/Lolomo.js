@@ -81,7 +81,9 @@ class Lomo extends React.Component {
 
   render() {
     const movieDetail = this.state.isActive?
-      <MovieDetail id={this.state.selectedMovie}/> :
+      <MovieDetail
+        close={this.props.disableActiveDetail}
+        id={this.state.selectedMovie}/> :
       "";
     return (
       <div className="lomo">
