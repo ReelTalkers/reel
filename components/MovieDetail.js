@@ -30,7 +30,11 @@ class MovieDetail extends React.Component {
   getTab(selectedTab) {
     // use if statement instead of dictionary so we only render if necessary
     if (selectedTab == 'overview') {
-      return <Overview mediaID={this.props.id} description={this.props.data.media.overview}/>
+      return <Overview
+        directors={this.props.data.media.directors.map(director => director.person.name)}
+        cast={this.props.data.media.cast.map(castMember => castMember.person.name)}
+        mediaID={this.props.id}
+        description={this.props.data.media.overview}/>
     } else if (selectedTab == 'similar') {
       return <Similar />
     } else {
@@ -97,6 +101,16 @@ const MovieDetailQuery = gql`
       poster_path,
       review {
         score
+      },
+      directors {
+        person {
+          name
+        }
+      },
+      cast(limit:5) {
+        person {
+          name
+        }
       }
     }
   }
@@ -110,9 +124,10 @@ class Overview extends React.Component {
   render() {
     const additionalInfo = [
       ["Available On", "Netflix"],
-      ["Director", "Your Dad"],
-      ["Starring", "Bradley Cooper, Jennifer Laurence, Waka Flocka"],
+      ["Director", this.props.directors],
+      ["Starring", this.props.cast.join(", ")],
     ]
+    console.log(this.props.directors)
     return (
       <div>
         <div className="description">
