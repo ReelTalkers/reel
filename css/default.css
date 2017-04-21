@@ -518,6 +518,10 @@ body {
   margin-right: 5px;
 }
 
+.movie-detail .info .cast_list {
+  display: inline-block;
+}
+
 /* Rating */
 .rating .toolbox {
   background: #fff;
