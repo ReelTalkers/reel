@@ -192,7 +192,6 @@ class SearchBar extends React.Component {
   }
 
   onSuggestionSelected(event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) {
-    console.log(suggestion.__typename);
     if (suggestion.__typename == MEDIA_TYPE) {
       this.props.displayMedia(suggestion.id);
     } else if (suggestion.__typename == USER_TYPE) {

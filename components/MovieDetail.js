@@ -148,7 +148,6 @@ class Overview extends React.Component {
       ["Director", this.props.directors.join(", ")],
       ["Starring", this.props.cast.join(", ")],
     ]
-    console.log(this.props.directors)
     return (
       <div>
         <div className="description">
