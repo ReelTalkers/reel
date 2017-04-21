@@ -51,11 +51,15 @@ class MovieDetail extends React.Component {
     const tabComponent = this.getTab(this.state.selectedTab, this.props.data.media);
     const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + this.props.data.media.poster_path;
 
+    const score = this.props.data.media.review?
+      this.props.data.media.review.score:
+      null;
+
     return (
       <div className="movie-detail">
         <div className="poster">
           <img src={poster_url} className="poster"/>
-          <Rating score={2} mediaID={this.props.id}/>
+          <Rating score={score} mediaID={this.props.id}/>
         </div>
         <div className="info">
           <div className="title">
@@ -90,7 +94,10 @@ const MovieDetailQuery = gql`
     media(id: $id) {
       overview,
       title,
-      poster_path
+      poster_path,
+      review {
+        score
+      }
     }
   }
 `
