@@ -9,9 +9,10 @@ class Rating extends Component {
   }
 
   score(score) {
-    this.props.submit(this.props.mediaID, score);
-    this.setState({
-      score: score
+    this.props.submit(this.props.mediaID, score).then(response => {
+      this.setState({
+        score: response.data.reviewMedia.score
+      });
     });
   }
 
@@ -57,7 +58,8 @@ class Rating extends Component {
 const submitRating = gql`
   mutation reviewMedia($mediaId: ID!, $score: Int!) {
     reviewMedia(mediaId: $mediaId, score: $score) {
-      id
+      id,
+      score
     }
   }
 `;
