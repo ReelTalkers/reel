@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import CircularPhoto from './Group';
 import Rating from './Rating';
 
 class MovieDetail extends React.Component {
@@ -16,11 +15,20 @@ class MovieDetail extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.ensureVisible();
+  componentWillMount() {
+    // TODO this is bad, the state should be lifted
+    if (!this.props.data.media) {
+      return;
+    }
+    const score = this.props.data.media.review?
+      this.props.data.media.review.score:
+      null;
+    this.state = {
+      score: score
+    };
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.ensureVisible();
   }
 
@@ -40,7 +48,7 @@ class MovieDetail extends React.Component {
         description={this.props.data.media.overview}/>
     } else if (selectedTab == 'similar') {
       return <Similar />
-    } else {
+    } else if (selectedTab == 'cast') {
       return <Cast />
     }
   }
@@ -94,7 +102,7 @@ class MovieDetail extends React.Component {
         <div className="poster">
           <img src={poster_url} className="poster"/>
           <Rating
-            score={this.state.score}
+            score={score}
             onClick={(score) => this.updateScore(this.props.id, score)}/>
         </div>
         <div className="info">
@@ -128,10 +136,12 @@ MovieDetail.propTypes = {
 const MovieDetailQuery = gql`
   query MovieDetailQuery($id: String!) {
     media(id: $id) {
+      id,
       overview,
       title,
       poster_path,
       review {
+        id,
         score
       },
       directors {
@@ -152,7 +162,10 @@ const submitRating = gql`
   mutation reviewMedia($mediaId: ID!, $score: Int!) {
     reviewMedia(mediaId: $mediaId, score: $score) {
       id,
-      score
+      review {
+        id,
+        score
+      }
     }
   }
 `;
@@ -208,7 +221,7 @@ class Cast extends React.Component {
     return (
       <div className="cast_list">
         <div className="actorPicture">
-          <CircularPhoto url="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiS5pWby7PTAhVJ74MKHWMRBZsQjRwIBw&url=http%3A%2F%2Fmuppet.wikia.com%2Fwiki%2FBig_Bird&psig=AFQjCNFLc3Lk-L93QxvnqQxtUzRd5iCN0Q&ust=1492796700698567"/>
+          <img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiS5pWby7PTAhVJ74MKHWMRBZsQjRwIBw&url=http%3A%2F%2Fmuppet.wikia.com%2Fwiki%2FBig_Bird&psig=AFQjCNFLc3Lk-L93QxvnqQxtUzRd5iCN0Q&ust=1492796700698567"/>
         </div>
         <div className="actorName">
           Pappa John
