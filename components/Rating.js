@@ -2,19 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { gql, graphql } from 'react-apollo';
 
 class Rating extends Component {
-  componentWillMount() {
-    // TODO: fix this http://stackoverflow.com/questions/28785106/reactjs-why-is-passing-the-component-initial-state-a-prop-an-anti-pattern
-    this.state = {
-      score: this.props.score,
-    }
-  }
-
-  score(score) {
-    this.props.submit(this.props.mediaID, score).then(response => {
-      this.setState({
-        score: response.data.reviewMedia.score
-      });
-    });
+  onClick(score) {
+    this.props.onClick(score);
   }
 
   renderButton(word, score, selectedScore) {
@@ -27,7 +16,7 @@ class Rating extends Component {
       <button
         key={score}
         className={"reaction-"+score+selected}
-        onClick={() => this.score(score)}>
+        onClick={() => this.onClick(score)}>
         <span className="legend">
           {word}
         </span>
@@ -48,7 +37,7 @@ class Rating extends Component {
       <div className="rating">
         <div className="toolbox">
           {reactions.map(reaction => (
-            this.renderButton(reaction.word, reaction.score, this.state.score)
+            this.renderButton(reaction.word, reaction.score, this.props.score)
           ))}
         </div>
       </div>
@@ -56,19 +45,4 @@ class Rating extends Component {
   }
 }
 
-const submitRating = gql`
-  mutation reviewMedia($mediaId: ID!, $score: Int!) {
-    reviewMedia(mediaId: $mediaId, score: $score) {
-      id,
-      score
-    }
-  }
-`;
-
-const RatingWithData = graphql(submitRating, {
-  props: ({ mutate }) => ({
-    submit: (mediaId, score) => mutate({ variables: { mediaId, score } }),
-  }),
-})(Rating);
-
-export default RatingWithData;
+export default Rating;

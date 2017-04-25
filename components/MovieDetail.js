@@ -1,6 +1,6 @@
 var React = require('react');
 import ReactDOM from 'react-dom';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import CircularPhoto from './Group';
@@ -12,6 +12,7 @@ class MovieDetail extends React.Component {
     this.state = {
       display: true,
       selectedTab: 'overview',
+      score: null,
     }
   }
 
@@ -53,6 +54,14 @@ class MovieDetail extends React.Component {
     });
   }
 
+  updateScore(movieId, score) {
+    this.props.submitRating(movieId, score).then(response => {
+      this.setState({
+        score: response.data.reviewMedia.score
+      });
+    });
+  }
+
   render() {
     if (!this.state.display) {
       return (<div></div>)
@@ -84,7 +93,9 @@ class MovieDetail extends React.Component {
         </div>
         <div className="poster">
           <img src={poster_url} className="poster"/>
-          <Rating score={score} mediaID={this.props.id}/>
+          <Rating
+            score={this.state.score}
+            onClick={(score) => this.updateScore(this.props.id, score)}/>
         </div>
         <div className="info">
           <div className="title">
@@ -137,9 +148,25 @@ const MovieDetailQuery = gql`
   }
 `
 
-const MovieDetailWithData = graphql(MovieDetailQuery, {
-    options: ({ id }) => ({ variables: { id } }),
-})(MovieDetail);
+const submitRating = gql`
+  mutation reviewMedia($mediaId: ID!, $score: Int!) {
+    reviewMedia(mediaId: $mediaId, score: $score) {
+      id,
+      score
+    }
+  }
+`;
+
+const MovieDetailWithData = compose(
+  graphql(submitRating, {
+    props: ({ mutate }) => ({
+      submitRating: (mediaId, score) => mutate({ variables: { mediaId, score } }),
+    }),
+  }),
+  graphql(MovieDetailQuery, {
+      options: ({ id }) => ({ variables: { id } }),
+  })
+)(MovieDetail);
 
 class Overview extends React.Component {
   render() {
