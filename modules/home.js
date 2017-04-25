@@ -102,12 +102,6 @@ const removeUserFromGroup = gql`
   }
 `;
 
-const HomeWithData = graphql(addUserToGroup, {
-  props: ({ mutate }) => ({
-    addUserToGroup: (id) => mutate({ variables: { id } }),
-  }),
-})(Home);
-
 const HomeWithMutations = compose(
   graphql(addUserToGroup, {
     props: ({ mutate }) => ({
