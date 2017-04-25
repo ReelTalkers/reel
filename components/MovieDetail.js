@@ -11,21 +11,7 @@ class MovieDetail extends React.Component {
     this.state = {
       display: true,
       selectedTab: 'overview',
-      score: null,
     }
-  }
-
-  componentWillMount() {
-    // TODO this is bad, the state should be lifted
-    if (!this.props.data.media) {
-      return;
-    }
-    const score = this.props.data.media.review?
-      this.props.data.media.review.score:
-      null;
-    this.state = {
-      score: score
-    };
   }
 
   componentDidMount() {
