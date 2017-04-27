@@ -159,7 +159,21 @@ const submitRating = gql`
 const MovieDetailWithData = compose(
   graphql(submitRating, {
     props: ({ mutate }) => ({
-      submitRating: (mediaId, score) => mutate({ variables: { mediaId, score } }),
+      submitRating: (mediaId, score) => mutate({
+        variables: { mediaId, score },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          reviewMedia: {
+            __typename: 'Media',
+            id: mediaId,
+            review: {
+              __typename: 'Review',
+              id: 1,
+              score: score,
+            }
+          }
+        }
+      }),
     }),
   }),
   graphql(MovieDetailQuery, {
