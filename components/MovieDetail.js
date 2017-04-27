@@ -262,14 +262,43 @@ const SimilarWithData = graphql(SimilarQuery, {
 class Cast extends React.Component {
   render() {
     return (
-      <div className="cast_list">
-        <div className="actorPicture">
-          <img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiS5pWby7PTAhVJ74MKHWMRBZsQjRwIBw&url=http%3A%2F%2Fmuppet.wikia.com%2Fwiki%2FBig_Bird&psig=AFQjCNFLc3Lk-L93QxvnqQxtUzRd5iCN0Q&ust=1492796700698567"/>
-        </div>
-        <div className="actorName">
-          Pappa John
-        </div>
+      <div className="cast-list">
+        <table>
+          <td>
+            <Actor
+            actorPhoto="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg"
+            actorName="kanyeezy"
+            actorRole="yeezus"/>
+          </td>
+          <td>
+            <Actor
+            actorPhoto="poop"
+            actorName="poop"
+            actorRole="mrpoopyface"/>
+          </td>
+        </table>
       </div>
+    );
+  }
+}
+
+class Actor extends React.Component {
+  render() {
+    return (
+      <div className="actor-view">
+          <div className="actor-photo">
+            <img src={this.props.actorPhoto}/>
+          </div>
+          <div className="actor-name">
+            {this.props.actorName}
+          </div>
+          <div className="spacer">
+            as
+          </div>
+          <div className="actor-role">
+            {this.props.actorRole}
+          </div>
+        </div>
     );
   }
 }

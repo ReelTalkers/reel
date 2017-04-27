@@ -533,6 +533,24 @@ body {
   justify-content: center;
 }
 
+.movie-detail .actor-view > * {
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.movie-detail .actor-view .actor-photo img{
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.movie-detail .actor-view .spacer {
+      color: #848484;
+}
+
 /* Rating */
 .rating .toolbox {
   background: #fff;
