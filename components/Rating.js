@@ -41,12 +41,7 @@ class Rating extends Component {
       { word: "Fantastic", score: 5 },
     ];
 
-    // if (this.props.score) {
-    //   this.state.rating = true;
-    // }
-
     const showToolbox = this.state.rating || !this.props.score;
-
     const toolbox = showToolbox? " selecting" : " selected";
 
     return (
@@ -59,15 +54,6 @@ class Rating extends Component {
             this.renderButton(reaction.word, reaction.score, this.props.score)
           ))}
         </div>
-        {/* <div
-          onMouseEnter={() => this.switchPrimary()}
-          className={"selected"+selected}>
-          {reactions.map(reaction => {
-            if (reaction.score == this.props.score) {
-              return this.renderButton(reaction.word, reaction.score, this.props.score)
-            }
-          })}
-        </div> */}
       </div>
     );
   }
