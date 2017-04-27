@@ -142,7 +142,7 @@ Recommendations.propTypes = {
 
 const RecommendationsQuery = gql`
   query RecommendationsQuery($groupMembersIds: [ID]!, $genres: [String]!) {
-    recommendations(userIds: $groupMembersIds, genres: $genres, minYear: 2010, quantity: 10) {
+    recommendations(userIds: $groupMembersIds, genres: $genres, minYear: 2010, quantity: 20) {
       name,
       media {
         id,
