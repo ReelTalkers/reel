@@ -49,7 +49,7 @@ class MovieDetail extends React.Component {
   }
 
   updateScore(movieId, score) {
-    this.props.submitRating(movieId, score).then(response => {
+    return this.props.submitRating(movieId, score).then(response => {
       this.setState({
         score: response.data.reviewMedia.score
       });
