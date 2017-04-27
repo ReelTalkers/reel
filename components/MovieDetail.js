@@ -263,22 +263,25 @@ class Cast extends React.Component {
   render() {
     return (
       <div className="cast-list">
-        <table className="cast-table">
-        <tbody className="table-body">
-          <td>
             <Actor
             actorPhoto="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg"
             actorName="kanyeezy"
             actorRole="yeezus"/>
-          </td>
-          <td>
+
             <Actor
             actorPhoto="smile.png"
             actorName="poop"
             actorRole="mrpoopyface"/>
-          </td>
-          </tbody>
-        </table>
+
+            <Actor
+            actorPhoto="smile.png"
+            actorName="poop"
+            actorRole="mrpoopyface"/>
+
+            <Actor
+            actorPhoto="smile.png"
+            actorName="poop"
+            actorRole="mrpoopyface"/>
       </div>
     );
   }

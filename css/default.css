@@ -551,12 +551,14 @@ body {
       color: #848484;
 }
 
-.movie-detail .cast-table {
+.movie-detail .cast-list {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.movie-detail .table-body > * {
+.movie-detail .cast-list > * {
   flex: 1;
+  flex-basis: 50%;
 }
 
 /* Rating */
