@@ -551,6 +551,14 @@ body {
       color: #848484;
 }
 
+.movie-detail .cast-table {
+  display: flex;
+}
+
+.movie-detail .table-body > * {
+  flex: 1;
+}
+
 /* Rating */
 .rating .toolbox {
   background: #fff;

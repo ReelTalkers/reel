@@ -263,7 +263,8 @@ class Cast extends React.Component {
   render() {
     return (
       <div className="cast-list">
-        <table>
+        <table className="cast-table">
+        <tbody className="table-body">
           <td>
             <Actor
             actorPhoto="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg"
@@ -272,10 +273,11 @@ class Cast extends React.Component {
           </td>
           <td>
             <Actor
-            actorPhoto="poop"
+            actorPhoto="smile.png"
             actorName="poop"
             actorRole="mrpoopyface"/>
           </td>
+          </tbody>
         </table>
       </div>
     );
