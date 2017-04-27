@@ -40,12 +40,7 @@ class MovieDetail extends React.Component {
   }
 
   close() {
-    if (this.props.close) {
-      this.props.close();
-    }
-    this.setState({
-      display: false
-    });
+    this.props.close();
   }
 
   updateScore(movieId, score) {

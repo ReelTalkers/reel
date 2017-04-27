@@ -30,6 +30,8 @@ class Navbar extends React.Component {
   closeMovieDetail() {
     this.setState({
       searchValue: "",
+      displayMedia: false,
+      mediaId: null,
     })
   }
 
