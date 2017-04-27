@@ -3,6 +3,7 @@ body {
   background-color: #FAFAFA;
   color: #222426;
   margin: 0px;
+  overflow-y: scroll;
 }
 
 /* Navbar */
@@ -370,6 +371,7 @@ body {
 
 .lolomo .lomo .row {
   padding-left: 55px;
+  padding-right: 55px;
 }
 
 .lolomo .movies {
@@ -394,10 +396,6 @@ body {
   margin-right: -55px;
   margin-left: -55px;
   padding-left: 55px;
-}
-
-.lolomo .row .slick-slider {
-  width: calc(100% - 55px);
 }
 
 .lolomo .row .slick-slider .nav-button {
