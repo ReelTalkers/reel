@@ -9,7 +9,6 @@ class MovieDetail extends React.Component {
   constructor() {
     super();
     this.state = {
-      display: true,
       selectedTab: 'overview',
     }
   }
@@ -33,7 +32,7 @@ class MovieDetail extends React.Component {
         mediaID={this.props.id}
         description={this.props.data.media.overview}/>
     } else if (selectedTab == 'similar') {
-      return <Similar />
+      return <SimilarWithData mediaId={this.props.id} />
     } else if (selectedTab == 'cast') {
       return <Cast />
     }
@@ -52,9 +51,6 @@ class MovieDetail extends React.Component {
   }
 
   render() {
-    if (!this.state.display) {
-      return (<div></div>)
-    }
     if (this.props.data.loading) {
       // loading
       return (
@@ -203,6 +199,35 @@ class Overview extends React.Component {
 
 class Similar extends React.Component {
   render() {
+    if (this.props.data.loading) {
+      // loading
+      return (
+        <div className="similar loading">
+          <img src="/assets/Loading.svg"/>
+        </div>
+      )
+    } else if (this.props.data.error) {
+      // error
+      return (<div>An unexpected error occurred</div>)
+    }
+
+    // TODO: Should make lolomo more importable and use it here
+    return (
+      <div className="similar">
+        <div className="movies">
+          {this.props.data.media.similar_media.map(movie => {
+            const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path;
+            return (
+              <div
+                key={movie.id}
+                className="movie">
+                <img src={poster_url}/>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
     return (
       <div>
         Some similar stuff
@@ -210,6 +235,29 @@ class Similar extends React.Component {
     );
   }
 }
+
+Similar.propTypes = {
+  data: React.PropTypes.shape({
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.object,
+  }).isRequired,
+};
+
+const SimilarQuery = gql`
+  query SimilarQuery($mediaId: String!) {
+    media(id: $mediaId) {
+      id,
+      similar_media(quantity: 10) {
+        id,
+        poster_path
+      }
+    }
+  }
+`
+
+const SimilarWithData = graphql(SimilarQuery, {
+  options: ({ mediaId }) => ({ variables: { mediaId } }),
+})(Similar);
 
 class Cast extends React.Component {
   render() {

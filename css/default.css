@@ -468,6 +468,8 @@ body {
   margin-left: 85px;
   margin-top: 30px;
   margin-right: 55px;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .movie-detail .title {
@@ -519,6 +521,16 @@ body {
 
 .movie-detail .info .cast_list {
   display: inline-block;
+}
+
+.movie-detail .info .similar {
+  margin-top: 70px;
+}
+
+.movie-detail .info .similar.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Rating */
