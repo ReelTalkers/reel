@@ -2,8 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import { gql, graphql } from 'react-apollo';
 
 class Rating extends Component {
+  constructor() {
+    super();
+    this.state = {
+      selecting: true,
+    }
+  }
+
   onClick(score) {
-    this.props.onClick(score);
+    this.props.onClick(score).then(() => this.setState({rating: false}));
   }
 
   renderButton(word, score, selectedScore) {
@@ -33,13 +40,34 @@ class Rating extends Component {
       { word: "Good", score: 4 },
       { word: "Fantastic", score: 5 },
     ];
+
+    // if (this.props.score) {
+    //   this.state.rating = true;
+    // }
+
+    const showToolbox = this.state.rating || !this.props.score;
+
+    const toolbox = showToolbox? " selecting" : " selected";
+
     return (
       <div className="rating">
-        <div className="toolbox">
+        <div
+          onMouseEnter={() => this.setState({rating: true})}
+          onMouseLeave={() => this.setState({rating: false})}
+          className={"toolbox"+toolbox}>
           {reactions.map(reaction => (
             this.renderButton(reaction.word, reaction.score, this.props.score)
           ))}
         </div>
+        {/* <div
+          onMouseEnter={() => this.switchPrimary()}
+          className={"selected"+selected}>
+          {reactions.map(reaction => {
+            if (reaction.score == this.props.score) {
+              return this.renderButton(reaction.word, reaction.score, this.props.score)
+            }
+          })}
+        </div> */}
       </div>
     );
   }
