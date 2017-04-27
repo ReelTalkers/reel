@@ -10,7 +10,8 @@ class Rating extends Component {
   }
 
   onClick(score) {
-    this.props.onClick(score).then(() => this.setState({rating: false}));
+    this.props.onClick(score);
+    this.setState({rating: false})
   }
 
   renderButton(word, score, selectedScore) {
