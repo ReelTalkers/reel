@@ -733,6 +733,12 @@ body {
     flex-wrap: wrap;
   }
 
+  .movie-detail .close-button {
+    top: 0px;
+    right: 5px;
+    font-size: 55px;
+  }
+
   .movie-detail .poster {
     display: none;
   }
@@ -791,5 +797,9 @@ body {
 
   .navbar .react-autosuggest__container {
     flex: 3;
+  }
+
+  .slick-slider .nav-button {
+    display: none
   }
 }
