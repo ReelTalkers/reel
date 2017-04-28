@@ -29,6 +29,7 @@ class MovieDetail extends React.Component {
     // use if statement instead of dictionary so we only render if necessary
     if (selectedTab == 'overview') {
       return <Overview
+        sources={this.props.data.media.sources}
         directors={this.props.data.media.directors.map(director => director.person.name)}
         cast={this.props.data.media.cast.map(castMember => castMember.person.name)}
         mediaID={this.props.id}
@@ -128,6 +129,10 @@ const MovieDetailQuery = gql`
         id,
         score
       },
+      sources {
+        name,
+        link
+      },
       directors {
         person {
           name
@@ -180,9 +185,19 @@ const MovieDetailWithData = compose(
 )(MovieDetail);
 
 class Overview extends React.Component {
+  renderSource(name, link) {
+    return (
+      <a key={name} href={link}>{name}</a>
+    );
+  }
+
   render() {
+    const sources = this.props.sources.map(source => {
+      return this.renderSource(source.name, source.link)
+    });
+    console.log(sources);
     const additionalInfo = [
-      ["Available On", "Netflix"],
+      ["Available On", sources],
       ["Director", this.props.directors.join(", ")],
       ["Starring", this.props.cast.join(", ")],
     ]
@@ -192,12 +207,17 @@ class Overview extends React.Component {
           {this.props.description}
         </div>
         <div className="additional-info">
-          {additionalInfo.map(info => (
-            <div key={info[0]} className="section">
-              <div className="label">{info[0]}: </div>
-              <div className="list">{info[1]}</div>
-            </div>
-          ))}
+          {additionalInfo.map(info => {
+            if (info[1] == "") {
+              return ""
+            }
+            return (
+              <div key={info[0]} className="section">
+                <div className="label">{info[0]}: </div>
+                <div className="list">{info[1]}</div>
+              </div>
+            )
+          })}
         </div>
       </div>
     );

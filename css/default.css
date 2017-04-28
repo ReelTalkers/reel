@@ -616,6 +616,18 @@ body {
   margin-right: 5px;
 }
 
+.list a {
+  color: rgb(234, 210, 71);
+}
+
+.movie-detail .additional-info .list a:last-child::after {
+  content: "";
+}
+
+.movie-detail .additional-info .list a::after {
+    content: ",";
+}
+
 .movie-detail .info .cast_list {
   display: inline-block;
 }
