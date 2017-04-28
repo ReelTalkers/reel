@@ -858,7 +858,11 @@ body {
 }
 
 /* Smartphones  ----------- */
-@media only screen and (max-width : 500px) {
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
 /* Styles */
   .lolomo .row .slick-list {
     margin-right: -5px;
