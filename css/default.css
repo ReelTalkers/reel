@@ -404,8 +404,8 @@ body {
 
 .lolomo .row .slick-slider .nav-button {
   height: calc(100% - 10px);
-  background-color: rgba(255, 255, 255, 0.65);
-  width: 51px;
+  background-color: rgba(255, 255, 255, 0.74);
+  width: 50px;
   font-size: 0;
   line-height: 0;
   top: 50%;
@@ -428,7 +428,7 @@ body {
 }
 
 .lolomo .row .slick-slider .nav-button:hover {
-  background-color: rgba(255, 255, 255, 0.67);
+  background-color: rgba(255, 255, 255, 0.76);
 }
 
 .lolomo .row .nav-button .icon {
