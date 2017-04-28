@@ -392,7 +392,7 @@ body {
   visibility: hidden;
 }
 
-.lolomo .row .slick-slider .slick-list .slick-slide {
+.lolomo .slick-slider .slick-list .slick-slide {
   height: inherit;
   position: relative;
 }
@@ -406,7 +406,7 @@ body {
   margin-bottom: -10px;
 }
 
-.lolomo .row .slick-slider .nav-button {
+.slick-slider .nav-button {
   height: calc(100% - 10px);
   background-color: rgba(255, 255, 255, 0.74);
   width: 50px;
@@ -423,38 +423,39 @@ body {
   transition: visibility 0s, opacity .05s linear;
 }
 
-.lolomo .row .nav-button.hidden {
+.nav-button.hidden {
   opacity: 0;
   visibility: hidden !important;
 }
 
-.lolomo .row .slick-slider .nav-button:hover {
+.slick-slider .nav-button:hover {
   background-color: rgba(255, 255, 255, 0.76);
 }
 
-.lolomo .row .nav-button .icon {
+.nav-button .icon {
   transition: transform 2s ease-out 0s,
   -webkit-transform .1s ease-out 0s,
   -moz-transform .1s ease-out 0s,
   -o-transform .1s ease-out 0s;
 }
 
-.lolomo .row:hover .nav-button .icon {
+.slick-slider:hover .nav-button .icon,
+.slick-slider .nav-button.always-on .icon {
   font-size: 60px;
   line-height: 1;
   color: #F7E688;
 }
 
-.lolomo .row .nav-button:hover .icon {
+.nav-button:hover .icon {
   font-weight: 700;
   transform: scale(1.25);
 }
 
-.lolomo .row .nav-button.prev {
+.nav-button.prev {
   left: -55px;
 }
 
-.lolomo .row .nav-button.next {
+.nav-button.next {
   right: -55px;
 }
 
@@ -545,9 +546,9 @@ body {
 }
 
 .movie-detail .info {
-  margin-left: 85px;
+  padding-left: 85px;
   margin-top: 30px;
-  margin-right: 55px;
+  padding-right: 55px;
   overflow-x: hidden;
   width: 100%;
 }

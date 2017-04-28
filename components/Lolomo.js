@@ -104,7 +104,6 @@ class Lomo extends React.Component {
         id={this.state.selectedMovie}/> :
       "";
     var settings = {
-      dots: true,
       infinite: true,
       speed: 500,
       initialSlide: 0,
@@ -138,13 +137,15 @@ class Lomo extends React.Component {
   }
 }
 
-const NavEnum = {
+export const NavEnum = {
     NEXT : 0,
     PREV : 1,
 }
 
-class NavButton extends React.Component {
+export class NavButton extends React.Component {
   render() {
+    const alwaysOn = this.props.alwaysOn? " always-on" : "";
+
     const extraClass = this.props.direction == NavEnum.NEXT? "next" : "prev";
     const faClass = this.props.direction == NavEnum.NEXT? "fa-angle-right" : "fa-angle-left";
 
@@ -167,7 +168,7 @@ class NavButton extends React.Component {
       <button
         {...this.props}
         onClick={() => onClick()}
-        className={"nav-button "+extraClass+hidden}>
+        className={"nav-button "+extraClass+hidden+alwaysOn}>
           <span className={"icon fa "+faClass}></span>
           Next
       </button>
