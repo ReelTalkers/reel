@@ -3,6 +3,7 @@ body {
   background-color: #FAFAFA;
   color: #222426;
   margin: 0px;
+  overflow-y: scroll;
 }
 
 /* Navbar */
@@ -369,7 +370,8 @@ body {
 }
 
 .lolomo .lomo .row {
-  margin-left: 55px;
+  padding-left: 55px;
+  padding-right: 55px;
 }
 
 .lolomo .movies {
@@ -386,6 +388,86 @@ body {
     display: none;
 }
 
+.lolomo .row.not-scrolled .slick-track [data-index="-1"] {
+  visibility: hidden;
+}
+
+.lolomo .slick-slider .slick-list .slick-slide {
+  height: inherit;
+  position: relative;
+}
+
+.lolomo .row .slick-list {
+  margin-right: -55px;
+  margin-left: -55px;
+  padding-left: 55px;
+  z-index: 1;
+  padding-bottom: 9px;
+  margin-bottom: -10px;
+}
+
+.slick-slider .nav-button {
+  height: calc(100% - 10px);
+  background-color: rgba(255, 255, 255, 0.74);
+  width: 50px;
+  font-size: 0;
+  line-height: 0;
+  top: 0;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: 0;
+  position: absolute;
+  padding: 0;
+  z-index: 3;
+  transition: visibility 0s, opacity .05s linear;
+}
+
+.nav-button.hidden {
+  opacity: 0;
+  visibility: hidden !important;
+}
+
+.slick-slider .nav-button:hover {
+  background-color: rgba(255, 255, 255, 0.76);
+}
+
+.nav-button .icon {
+  transition: transform 2s ease-out 0s,
+  -webkit-transform .1s ease-out 0s,
+  -moz-transform .1s ease-out 0s,
+  -o-transform .1s ease-out 0s;
+}
+
+.slick-slider:hover .nav-button .icon,
+.slick-slider .nav-button.always-on .icon {
+  font-size: 60px;
+  line-height: 1;
+  color: #F7E688;
+}
+
+.nav-button:hover .icon {
+  font-weight: 700;
+  transform: scale(1.25);
+}
+
+.nav-button.prev {
+  left: -55px;
+}
+
+.nav-button.next {
+  right: -55px;
+}
+
+.lolomo .row .slick-slider .slick-prev {
+  left: 0px;
+  z-index: 1;
+}
+
+.lolomo .row .slick-slider .slick-next {
+  right: 0;
+}
+
 .lolomo .row .title {
   color: #818488;
   font-size: 25px;
@@ -393,8 +475,8 @@ body {
 }
 
 .lolomo .movie {
-  width: 166.7px;
-	height: 250px;
+  /*width: 166.7px;*/
+	/*height: 250px;*/
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.35);
   display: inline-block;
   margin: 5px;
@@ -412,15 +494,14 @@ body {
   border-color: #f5d72f transparent transparent;
   border-style: solid;
   border-width: 10px 20px 0px;
-  left: -105.85px;
-  top: 28px;
-  z-index: 9;
-  position: relative;
+  left: calc(50% - 20px);
+  bottom: -9px;
+  position: absolute;
 }
 
 .lolomo .movie img {
   width: 100%;
-  height:100%;
+  /*height:100%;*/
 }
 
 /* Movie Detail */
@@ -465,9 +546,9 @@ body {
 }
 
 .movie-detail .info {
-  margin-left: 85px;
+  padding-left: 85px;
   margin-top: 30px;
-  margin-right: 55px;
+  padding-right: 55px;
   overflow-x: hidden;
   width: 100%;
 }

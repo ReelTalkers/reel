@@ -2,8 +2,10 @@ var React = require('react');
 import ReactDOM from 'react-dom';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import Slider from 'react-slick';
 
 import Rating from './Rating';
+import { NavEnum, NavButton} from './Lolomo';
 
 class MovieDetail extends React.Component {
   constructor() {
@@ -198,6 +200,17 @@ class Overview extends React.Component {
 }
 
 class Similar extends React.Component {
+  renderNavButton(direction) {
+    return (
+      <NavButton
+        hasScrolled={true}
+        direction={direction}
+        alwaysOn={true}
+        onScroll={() => null}
+      />
+    )
+  }
+
   render() {
     if (this.props.data.loading) {
       // loading
@@ -211,21 +224,32 @@ class Similar extends React.Component {
       return (<div>An unexpected error occurred</div>)
     }
 
+    var settings = {
+      infinite: true,
+      speed: 500,
+      initialSlide: 0,
+      slidesToShow: 8,
+      slidesToScroll: 8,
+      dots: false,
+      prevArrow: this.renderNavButton(NavEnum.PREV),
+      nextArrow: this.renderNavButton(NavEnum.NEXT)
+    };
     // TODO: Should make lolomo more importable and use it here
     return (
       <div className="similar">
-        <div className="movies">
+        <Slider {...settings}>
           {this.props.data.media.similar_media.map(movie => {
             const poster_url = "https://image.tmdb.org/t/p/w300_and_h450_bestv2/" + movie.poster_path;
             return (
-              <div
-                key={movie.id}
-                className="movie">
-                <img src={poster_url}/>
+              <div key={movie.id}>
+                <div
+                  className="movie">
+                  <img src={poster_url}/>
+                </div>
               </div>
             )
           })}
-        </div>
+        </Slider>
       </div>
     )
     return (
