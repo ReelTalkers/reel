@@ -26,8 +26,12 @@ body {
   flex: 1;
 }
 
-.navbar .logo img {
+.navbar .logo a {
+  background-image: url(/assets/navbar-logo.png);
+  background-repeat: no-repeat;
+  background-size: contain;
   height: 32px;
+  display: block;
 }
 
 .navbar .react-autosuggest__container {

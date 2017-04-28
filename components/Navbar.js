@@ -56,9 +56,7 @@ class Navbar extends React.Component {
       <div className="navbar-wrapper">
         <div className="navbar">
           <div className="logo">
-            <a href="/">
-              <img src="/assets/navbar-logo.png" alt="Reeltalk"/>
-            </a>
+            <a alt="Reeltalk" href="/"></a>
           </div>
           {searchBar}
           <div className="user-name">
