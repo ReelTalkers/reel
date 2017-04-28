@@ -6,6 +6,60 @@ body {
   overflow-y: scroll;
 }
 
+/* Welcome */
+.welcome {
+  text-align: center;
+}
+
+.welcome .logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.welcome .logo img {
+  height: 200px;
+  margin-right: 20px;
+}
+
+.welcome h1 {
+  font-size: 100px;
+  font-weight: 100;
+  line-height: 1em;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+}
+
+.login-button {
+  border: 0 none;
+  cursor: pointer;
+  background: #6b8fd8;
+  border-radius: 5px;
+  color: white;
+  height: 40px;
+  text-align: center;
+  width: 250px;
+  padding: 0 8px;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+}
+
+.login-button:hover {
+  background: #5c7bbb;
+}
+
+.login-button .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-button svg {
+  height: 26px;
+  margin-right: 10px;
+}
+
 /* Navbar */
 .navbar-wrapper {
   margin-bottom: 20px;
