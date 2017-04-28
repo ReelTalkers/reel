@@ -725,6 +725,10 @@ body {
     visibility: hidden;
   }
 
+  .lolomo .row.not-scrolled .slick-track [data-index="-1"] {
+    visibility: visible;
+  }
+
   .movie-detail {
     flex-wrap: wrap;
   }
