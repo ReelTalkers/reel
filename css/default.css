@@ -388,6 +388,10 @@ body {
     display: none;
 }
 
+.lolomo .row.not-scrolled .slick-track [data-index="-1"] {
+  visibility: hidden;
+}
+
 .lolomo .row .slick-slider .slick-list .slick-slide {
   height: inherit;
 }
@@ -400,12 +404,57 @@ body {
 
 .lolomo .row .slick-slider .nav-button {
   height: calc(100% - 10px);
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 50px;
+  background-color: rgba(255, 255, 255, 0.65);
+  width: 51px;
+  font-size: 0;
+  line-height: 0;
+  top: 50%;
+  -webkit-transform: translate(0,-50%);
+  -ms-transform: translate(0,-50%);
+  transform: translate(0,-50%);
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: 0;
+  position: absolute;
+  padding: 0;
+  z-index: 1;
+  transition: visibility 0s, opacity .05s linear;
+}
+
+.lolomo .row .nav-button.hidden {
+  opacity: 0;
+  visibility: hidden !important;
 }
 
 .lolomo .row .slick-slider .nav-button:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.67);
+}
+
+.lolomo .row .nav-button .icon {
+  transition: transform 2s ease-out 0s,
+  -webkit-transform .1s ease-out 0s,
+  -moz-transform .1s ease-out 0s,
+  -o-transform .1s ease-out 0s;
+}
+
+.lolomo .row:hover .nav-button .icon {
+  font-size: 60px;
+  line-height: 1;
+  color: #F7E688;
+}
+
+.lolomo .row .nav-button:hover .icon {
+  font-weight: 700;
+  transform: scale(1.25);
+}
+
+.lolomo .row .nav-button.prev {
+  left: -55px;
+}
+
+.lolomo .row .nav-button.next {
+  right: -55px;
 }
 
 .lolomo .row .slick-slider .slick-prev {
