@@ -9,6 +9,38 @@ body {
 /* Welcome */
 .welcome {
   text-align: center;
+  color: white;
+  background-color: black;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Montserrat, Helvetica, Arial, sans-serif;
+}
+
+.welcome .background {
+  background: url("../assets/fam.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  display: block;
+  top: 0;
+  bottom: 0;
+  -webkit-filter: blur(3px); */
+  -moz-filter: blur(3px);
+  -o-filter: blur(3px);
+  -ms-filter: blur(3px);
+  filter: blur(3px);
+  opacity: 0.5;
+}
+
+.welcome .content {
+  z-index: 1;
+  position: relative;
 }
 
 .welcome .logo {
@@ -19,15 +51,18 @@ body {
 }
 
 .welcome .logo img {
-  height: 200px;
-  margin-right: 20px;
+  height: 100px;
+}
+
+.welcome .tag-line {
+  font-size: 50px;
+  margin-bottom: 50px;
 }
 
 .welcome h1 {
   font-size: 100px;
   font-weight: 100;
   line-height: 1em;
-  font-family: Montserrat, Helvetica, Arial, sans-serif;
 }
 
 .login-button {
@@ -672,6 +707,7 @@ body {
 
 .list a {
   color: rgb(234, 210, 71);
+  text-decoration: none;
 }
 
 .movie-detail .additional-info .list a:last-child::after {
@@ -679,7 +715,7 @@ body {
 }
 
 .movie-detail .additional-info .list a::after {
-    content: ",";
+    content: ", ";
 }
 
 .movie-detail .info .cast_list {
