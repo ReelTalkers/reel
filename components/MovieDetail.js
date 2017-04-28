@@ -37,7 +37,7 @@ class MovieDetail extends React.Component {
     } else if (selectedTab == 'similar') {
       return <SimilarWithData mediaId={this.props.id} />
     } else if (selectedTab == 'cast') {
-      return <Cast />
+      return <CastWithData mediaId={this.props.id} />
     }
   }
 
@@ -195,7 +195,6 @@ class Overview extends React.Component {
     const sources = this.props.sources.map(source => {
       return this.renderSource(source.name, source.link)
     });
-    console.log(sources);
     const additionalInfo = [
       ["Available On", sources],
       ["Director", this.props.directors.join(", ")],
@@ -321,27 +320,30 @@ const SimilarWithData = graphql(SimilarQuery, {
 
 class Cast extends React.Component {
   render() {
+    if (this.props.data.loading) {
+      // loading
+      return (
+        <div className="similar loading">
+          <img src="/assets/Loading.svg"/>
+        </div>
+      )
+    } else if (this.props.data.error) {
+      // error
+      return (<div>An unexpected error occurred</div>)
+    }
+
     return (
       <div className="cast-list">
+        {this.props.data.media.cast.map(cast => {
+          const photoUrl = "https://image.tmdb.org/t/p/w276_and_h350_bestv2/" + cast.person.profile_path;
+          return (
             <Actor
-            actorPhoto="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg/220px-Kanye_West_at_the_2009_Tribeca_Film_Festival.jpg"
-            actorName="kanyeezy"
-            actorRole="yeezus"/>
-
-            <Actor
-            actorPhoto="smile.png"
-            actorName="poop"
-            actorRole="mrpoopyface"/>
-
-            <Actor
-            actorPhoto="smile.png"
-            actorName="poop"
-            actorRole="mrpoopyface"/>
-
-            <Actor
-            actorPhoto="smile.png"
-            actorName="poop"
-            actorRole="mrpoopyface"/>
+              key={cast.person.id}
+              actorPhoto={photoUrl}
+              actorName={cast.person.name}
+              actorRole={cast.character}/>
+          )
+        })}
       </div>
     );
   }
@@ -368,5 +370,31 @@ class Actor extends React.Component {
   }
 }
 
+Cast.propTypes = {
+  data: React.PropTypes.shape({
+    loading: React.PropTypes.bool,
+    error: React.PropTypes.object,
+  }).isRequired,
+};
+
+const CastQuery = gql`
+  query CastQuery($mediaId: String!) {
+    media(id: $mediaId) {
+      id,
+      cast(limit: 14) {
+        character,
+        person {
+          id,
+          name,
+          profile_path
+        }
+      }
+    }
+  }
+`
+
+const CastWithData = graphql(CastQuery, {
+  options: ({ mediaId }) => ({ variables: { mediaId } }),
+})(Cast);
 
 export default MovieDetailWithData;

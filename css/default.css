@@ -736,7 +736,7 @@ body {
   display: inline-block;
   margin-right: 5px;
   vertical-align: middle;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
 }
 
@@ -744,20 +744,33 @@ body {
   border-radius: 50%;
   width: 45px;
   height: 45px;
+  object-fit: cover;
 }
 
 .movie-detail .actor-view .spacer {
-      color: #848484;
+  color: #848484;
+}
+
+.movie-detail .actor-view .actor-photo {
+  margin-right: 15px;
 }
 
 .movie-detail .cast-list {
   display: flex;
-  flex-wrap: wrap;
+  margin-top: -15px;
+  max-height: 400px;
+  flex-flow: column wrap;
+  overflow: auto;
+  align-content: flex-start;
 }
 
-.movie-detail .cast-list > * {
-  flex: 1;
-  flex-basis: 50%;
+.movie-detail .actor-view {
+  align-self: flex-start;
+  width: 50%;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Rating */
@@ -832,6 +845,16 @@ body {
 
 .mobile-only {
   display: none;
+}
+
+/* for cast */
+@media only screen and (max-width : 1000px) {
+  .cast-list .actor-view:nth-last-child(-n+7) {
+    display: none;
+  }
+  .cast-list .actor-view {
+    width: 100%;
+  }
 }
 
 /* Smartphones  ----------- */
