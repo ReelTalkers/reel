@@ -88,6 +88,11 @@ class MovieDetail extends React.Component {
           <div className="title">
             {this.props.data.media.title}
           </div>
+          <div className="mobile-only">
+            <Rating
+              score={score}
+              onClick={(score) => this.updateScore(this.props.id, score)}/>
+          </div>
           <div className="tabs">
             {tabs.map(tab => (
               <div
@@ -228,11 +233,22 @@ class Similar extends React.Component {
       infinite: true,
       speed: 500,
       initialSlide: 0,
-      slidesToShow: 8,
-      slidesToScroll: 8,
+      slidesToShow: 7,
+      slidesToScroll: 7,
       dots: false,
       prevArrow: this.renderNavButton(NavEnum.PREV),
-      nextArrow: this.renderNavButton(NavEnum.NEXT)
+      nextArrow: this.renderNavButton(NavEnum.NEXT),
+      responsive: [
+        { breakpoint: 1441,
+          settings: { slidesToScroll: 6, slidesToShow: 6 }
+        },
+        { breakpoint: 1101,
+          settings: { slidesToScroll: 4, slidesToShow: 4 }
+        },
+        { breakpoint: 801,
+          settings: { slidesToScroll: 3, slidesToShow: 3 }
+        },
+      ]
     };
     // TODO: Should make lolomo more importable and use it here
     return (
@@ -271,7 +287,7 @@ const SimilarQuery = gql`
   query SimilarQuery($mediaId: String!) {
     media(id: $mediaId) {
       id,
-      similar_media(quantity: 10) {
+      similar_media(quantity: 16) {
         id,
         poster_path
       }

@@ -102,7 +102,7 @@ body {
 
 .navbar .suggestions-container {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   top: 59px;
 }
 
@@ -682,4 +682,79 @@ body {
   transform: translateX(-50%);
   opacity: 0;
   white-space: nowrap;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Smartphones  ----------- */
+@media only screen and (max-width : 500px) {
+/* Styles */
+  .lolomo .row .slick-list {
+    margin-right: -5px;
+    margin-left: -5px;
+    padding-left: 5px;
+  }
+
+  .lolomo .lomo .row {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .lolomo .row .nav-button {
+    visibility: hidden;
+  }
+
+  .movie-detail {
+    flex-wrap: wrap;
+  }
+
+  .movie-detail .poster {
+    display: none;
+  }
+
+  .mobile-only {
+    display: initial;
+  }
+
+  .movie-detail .rating {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .movie-detail .rating.new {
+    justify-content: center;
+  }
+
+  .movie-detail .tabs > * {
+    flex: 1;
+    margin-right: 0px;
+    text-align: center;
+  }
+
+  .movie-detail .info {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 15px;
+  }
+
+  .movie-detail .title {
+    margin-bottom: 15px;
+  }
+
+  .movie-detail .additional-info .section {
+    font-size: 17px;
+  }
+
+  .movie-detail .description {
+    font-size: 17px;
+  }
+
+  .movie-detail .info .similar {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
 }
