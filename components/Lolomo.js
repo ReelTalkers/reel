@@ -107,11 +107,25 @@ class Lomo extends React.Component {
       infinite: true,
       speed: 500,
       initialSlide: 0,
-      slidesToShow: 8,
-      slidesToScroll: 8,
+      slidesToShow: 9,
+      slidesToScroll: 9,
       dots: false,
       prevArrow: this.renderNavButton(NavEnum.PREV),
-      nextArrow: this.renderNavButton(NavEnum.NEXT)
+      nextArrow: this.renderNavButton(NavEnum.NEXT),
+      responsive: [
+        { breakpoint: 1441,
+          settings: { slidesToScroll: 8, slidesToShow: 8 }
+        },
+        { breakpoint: 1101,
+          settings: { slidesToScroll: 6, slidesToShow: 6 }
+        },
+        { breakpoint: 801,
+          settings: { slidesToScroll: 5, slidesToShow: 5 }
+        },
+        { breakpoint: 500,
+          settings: { slidesToScroll: 3, slidesToShow: 3 }
+        },
+      ]
     };
     const scrolledClass = this.state.hasScrolled? "" : " not-scrolled"
     return (

@@ -29,6 +29,7 @@ class MovieDetail extends React.Component {
     // use if statement instead of dictionary so we only render if necessary
     if (selectedTab == 'overview') {
       return <Overview
+        sources={this.props.data.media.sources}
         directors={this.props.data.media.directors.map(director => director.person.name)}
         cast={this.props.data.media.cast.map(castMember => castMember.person.name)}
         mediaID={this.props.id}
@@ -88,6 +89,11 @@ class MovieDetail extends React.Component {
           <div className="title">
             {this.props.data.media.title}
           </div>
+          <div className="mobile-only">
+            <Rating
+              score={score}
+              onClick={(score) => this.updateScore(this.props.id, score)}/>
+          </div>
           <div className="tabs">
             {tabs.map(tab => (
               <div
@@ -122,6 +128,10 @@ const MovieDetailQuery = gql`
       review {
         id,
         score
+      },
+      sources {
+        name,
+        link
       },
       directors {
         person {
@@ -175,9 +185,19 @@ const MovieDetailWithData = compose(
 )(MovieDetail);
 
 class Overview extends React.Component {
+  renderSource(name, link) {
+    return (
+      <a key={name} href={link}>{name}</a>
+    );
+  }
+
   render() {
+    const sources = this.props.sources.map(source => {
+      return this.renderSource(source.name, source.link)
+    });
+    console.log(sources);
     const additionalInfo = [
-      ["Available On", "Netflix"],
+      ["Available On", sources],
       ["Director", this.props.directors.join(", ")],
       ["Starring", this.props.cast.join(", ")],
     ]
@@ -187,12 +207,17 @@ class Overview extends React.Component {
           {this.props.description}
         </div>
         <div className="additional-info">
-          {additionalInfo.map(info => (
-            <div key={info[0]} className="section">
-              <div className="label">{info[0]}: </div>
-              <div className="list">{info[1]}</div>
-            </div>
-          ))}
+          {additionalInfo.map(info => {
+            if (info[1] == "") {
+              return ""
+            }
+            return (
+              <div key={info[0]} className="section">
+                <div className="label">{info[0]}: </div>
+                <div className="list">{info[1]}</div>
+              </div>
+            )
+          })}
         </div>
       </div>
     );
@@ -228,11 +253,22 @@ class Similar extends React.Component {
       infinite: true,
       speed: 500,
       initialSlide: 0,
-      slidesToShow: 8,
-      slidesToScroll: 8,
+      slidesToShow: 7,
+      slidesToScroll: 7,
       dots: false,
       prevArrow: this.renderNavButton(NavEnum.PREV),
-      nextArrow: this.renderNavButton(NavEnum.NEXT)
+      nextArrow: this.renderNavButton(NavEnum.NEXT),
+      responsive: [
+        { breakpoint: 1441,
+          settings: { slidesToScroll: 6, slidesToShow: 6 }
+        },
+        { breakpoint: 1101,
+          settings: { slidesToScroll: 4, slidesToShow: 4 }
+        },
+        { breakpoint: 801,
+          settings: { slidesToScroll: 3, slidesToShow: 3 }
+        },
+      ]
     };
     // TODO: Should make lolomo more importable and use it here
     return (
@@ -271,7 +307,7 @@ const SimilarQuery = gql`
   query SimilarQuery($mediaId: String!) {
     media(id: $mediaId) {
       id,
-      similar_media(quantity: 10) {
+      similar_media(quantity: 16) {
         id,
         poster_path
       }

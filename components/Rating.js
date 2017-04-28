@@ -44,9 +44,10 @@ class Rating extends Component {
 
     const showToolbox = this.state.rating || !this.props.score;
     const toolbox = showToolbox? " selecting" : " selected";
+    const neverSelected = this.props.score? "" : " new";
 
     return (
-      <div className="rating">
+      <div className={"rating"+neverSelected}>
         <div
           onMouseEnter={() => this.setState({rating: true})}
           onMouseLeave={() => this.setState({rating: false})}
