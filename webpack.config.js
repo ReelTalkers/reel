@@ -4,6 +4,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
+  devServer: {
+    host: "reeltalk.student.cwru.edu",
+    port: 8080,
+    https: false
+  },
   module: {
     loaders: [
       {
