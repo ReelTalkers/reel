@@ -187,7 +187,7 @@ const MovieDetailWithData = compose(
 class Overview extends React.Component {
   renderSource(name, link) {
     return (
-      <a key={name} href={link}>{name}</a>
+      <a key={name} target="_blank" href={link}>{name}</a>
     );
   }
 
