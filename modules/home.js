@@ -75,7 +75,7 @@ class Home extends React.Component {
         />
         <RecommendationsWithData
           groupMembersIds={this.state.groupMembers.map(user => user.id)}
-          genres={["Top", "Comedy", "Drama"]}
+          genres={["Top", "Comedy", "Drama", "Documentary", "Action", "Romance", "Thriller", "Adventure", "Animation"]}
         />
       </div>
     );
