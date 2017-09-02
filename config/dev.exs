@@ -52,7 +52,7 @@ config :phoenix, :stacktrace_depth, 20
 config :reel, Reel.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
-  password: "Y7EUFQaX4jZI",
+  password: "",
   database: "reel_dev",
   hostname: "localhost",
   template: "template0",
