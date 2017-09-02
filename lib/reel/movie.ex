@@ -19,6 +19,6 @@ defmodule Reel.Movie do
   def changeset(%Movie{} = movie, attrs) do
     movie
     |> cast(attrs, [:adult, :imdb_id, :release_date, :runtime, :tagline, :video, :media_id, :collection_id])
-    |> validate_required([:adult, :release_date, :runtime, :media_id])
+    |> validate_required([:adult, :imdb_id :release_date, :runtime, :media_id])
   end
 end
