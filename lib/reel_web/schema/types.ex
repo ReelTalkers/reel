@@ -101,4 +101,28 @@ defmodule ReelWeb.Schema.Types do
 
   end
 
+  object :movie do
+    field :id, :id
+    field :backdrop, :string
+    field :budget, :integer
+    field :homepage, :string
+    field :name, :string
+    field :original_name, :string
+    field :overview, :string
+    field :poster, :string
+    field :revenue, :integer
+    field :status, :string
+    field :tmdb_average, :float
+    field :tmdb_id, :integer
+    field :tmdb_popularity, :float
+    field :tmdb_vote_count, :integer
+
+    field :adult, :boolean
+    field :imdb_id, :string
+    field :release_date, :date
+    field :runtime, :integer
+    field :tagline, :string
+    field :video, :boolean
+  end
+
 end

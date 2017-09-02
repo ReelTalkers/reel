@@ -15,6 +15,10 @@ defmodule ReelWeb.Schema do
       resolve &ReelWeb.ShowResolver.all/2
     end
 
+    field :movies, list_of(:movie) do
+      resolve &ReelWeb.MovieResolver.all/2
+    end
+
     # field :media, list_of(:medium) do
     #   arg :genre_id, non_null(:id)
     #   resolve &ReelWeb.MediumResolver.filter_by_genre/2
@@ -89,6 +93,30 @@ defmodule ReelWeb.Schema do
       arg :episode_runtimes, non_null(list_of(:integer))
       arg :origin_countries, non_null(list_of(:string))
       resolve &ReelWeb.ShowResolver.create/2
+    end
+
+    field :create_movie, type: :movie do
+      arg :backdrop, :string
+      arg :budget, non_null(:integer)
+      arg :homepage, :string
+      arg :name, non_null(:string)
+      arg :original_name, non_null(:string)
+      arg :overview, :string
+      arg :poster, :string
+      arg :revenue, non_null(:integer)
+      arg :status, non_null(:string)
+      arg :tmdb_average, :float
+      arg :tmdb_id, :integer
+      arg :tmdb_popularity, :float
+      arg :tmdb_vote_count, :integer
+      arg :original_language_id, non_null(:integer)
+      arg :adult, non_null(:boolean)
+      arg :imdb_id, non_null(:string)
+      arg :release_date, non_null(:date)
+      arg :runtime, non_null(:integer)
+      arg :tagline, :string
+      arg :video, :boolean
+      resolve &ReelWeb.MovieResolver.create/2
     end
 
     # field :review_media, type: :review do
