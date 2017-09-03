@@ -60,7 +60,7 @@ defmodule ReelWeb do
 
   def resolver do
     quote do
-      import Ecto.Query, only: [first: 1, where: 2, join: 5]
+      import Ecto.Query, only: [first: 1, where: 3, join: 5]
       alias Reel.Repo
 
       alias Reel.Air
