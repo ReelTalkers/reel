@@ -4,19 +4,6 @@ defmodule ReelWeb.Schema.Types do
   """
   use Absinthe.Schema.Notation
 
-  # enum :genre do
-  #   value :comedy
-  #   value :drama
-  #   value :indie
-  # end
-  #
-  # enum :release_availability do
-  #   value :not_released
-  #   value :in_theaters
-  #   value :streaming
-  #   value :physical
-  # end
-  #
   @desc """
   The `Time` scalar type represents time values provided in the ISOz
   datetime format (that is, the ISO 8601 format without the timezone offset, eg,
@@ -76,6 +63,31 @@ defmodule ReelWeb.Schema.Types do
     # field :credits, list_of(:crew_member)
   end
 
+  interface :medium do
+    description "A movie or a show"
+
+    field :id, :id
+    field :backdrop, :string
+    field :budget, :integer
+    field :homepage, :string
+    field :name, :string
+    field :original_name, :string
+    field :overview, :string
+    field :poster, :string
+    field :revenue, :integer
+    field :status, :string
+    field :tmdb_average, :float
+    field :tmdb_id, :integer
+    field :tmdb_popularity, :float
+    field :tmdb_vote_count, :integer
+
+    resolve_type fn
+      %{release_date: _}, _ -> :movie
+      %{first_air_date: _}, _ -> :show
+      _, _ -> nil
+    end
+  end
+
   object :show do
     field :id, :id
     field :backdrop, :string
@@ -99,6 +111,7 @@ defmodule ReelWeb.Schema.Types do
     field :episode_runtimes, list_of(:integer)
     field :origin_countries, list_of(:string)
 
+    interface :medium
   end
 
   object :movie do
@@ -123,6 +136,15 @@ defmodule ReelWeb.Schema.Types do
     field :runtime, :integer
     field :tagline, :string
     field :video, :boolean
+
+    interface :medium
+  end
+
+  object :genre do
+    field :name, :string
+    field :tmdb_id, :integer
+    
+    field :media, list_of(:medium)
   end
 
 end

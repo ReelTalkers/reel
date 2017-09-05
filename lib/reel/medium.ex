@@ -16,6 +16,9 @@ defmodule Reel.Medium do
     field :tmdb_popularity, :float
     field :tmdb_vote_count, :integer
 
+    has_one :movie, Movie
+    has_one :show, Show
+
     belongs_to :original_language, Language
 
     has_many :creates, Create
@@ -35,10 +38,26 @@ defmodule Reel.Medium do
     timestamps()
   end
 
+  # https://stackoverflow.com/questions/42212425/conditional-validation-in-ecto-for-or-1-of-2-fields-is-required
+  def validate_required_inclusion(changeset, fields) do
+    if Enum.any?(fields, &present?(changeset, &1)) do
+      changeset
+    else
+      # Add the error to the first field only since Ecto requires a field name for each error.
+      add_error(changeset, hd(fields), "One of these fields must be present: #{inspect fields}")
+    end
+  end
+
+  def present?(changeset, field) do
+    value = get_field(changeset, field)
+    value && value != ""
+  end
+
   @doc false
   def changeset(%Medium{} = medium, attrs) do
     medium
     |> cast(attrs, [:backdrop, :budget, :homepage, :name, :original_name, :poster, :overview, :revenue, :status, :tmdb_id, :tmdb_average, :tmdb_popularity, :tmdb_vote_count, :original_language_id])
     |> validate_required([:budget, :name, :original_name, :revenue, :status, :original_language_id])
+    |> validate_required_inclusion([:movie, :show])
   end
 end
