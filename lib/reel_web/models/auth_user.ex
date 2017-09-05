@@ -1,4 +1,4 @@
-defmodule AuthUser do
+defmodule ReelWeb.AuthUser do
   alias Ueberauth.Auth
 
   def basic_info(%Auth{} = auth) do

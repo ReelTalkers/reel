@@ -13,15 +13,23 @@ config :reel,
 config :reel, ReelWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "FBtJXEM6wDTLRgdWowxZciXjYGaXagX2AKlIoTlMz42tSOMe+aqxHNY6cejEr+BS",
-  render_errors: [view: ReelWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: ReelWeb.ErrorView, accepts: ~w(html json json-api)],
   pubsub: [name: Reel.PubSub,
            adapter: Phoenix.PubSub.PG2]
+
+# Change the json response type to json-api
+config :phoenix, :format_encoders,
+  "json-api": Poison
+
+config :plug, :types, %{
+ "application/vnd.api+json" => ["json-api"]
+}
 
 # Ueberauth Config for oauth
 config :ueberauth, Ueberauth,
   base_path: "/api/v1/auth",
   providers: [
-    facebook: { Ueberauth.Strategy.Facebook,[]}, # [profile_fields: "name,email,first_name,last_name"] },
+    facebook: { Ueberauth.Strategy.Facebook, [profile_fields: "name,email,first_name,last_name"] },
     google: { Ueberauth.Strategy.Google, [] },
     identity: { Ueberauth.Strategy.Identity, [
         callback_methods: ["POST"],

@@ -1,50 +1,84 @@
 defmodule ReelWeb.AuthController do
+  @moduledoc """
+  Auth controller responsible for handling Ueberauth responses
+  """
   use ReelWeb, :controller
+
   alias Reel.User
-  alias ReelWeb.Guardian
+  alias Ueberauth.Auth
+
   plug Ueberauth
 
-  plug :scrub_params, "user" when action in [:sign_in_user]
-
-  def request(_params) do
+  def delete(conn, _params) do
+    # Sign out the user
+    conn
+    |> put_status(200)
+    |> Guardian.Plug.sign_out(conn)
   end
 
-  def delete(conn, params) do
-    conn
-      |> put_status(200)
-      |> Guardian.Plug.sign_out(conn)
+  def callback(conn, %{
+    "provider" => "facebook"
+  } = params) do
+    auth = conn.assigns.ueberauth_auth
+    info = conn.assigns.ueberauth_auth.info
+    sign_in_user(conn, %{
+      "data" => %{
+        "type" => "auth",
+        "attributes" => %{
+          "token" => auth.credentials.token,
+          "email" => info.email,
+          "first_name" => info.first_name,
+          "last_name" => info.last_name,
+          "avatar" => info.image
+        }
+      }
+    })
+  end
+
+  def callback(conn, %{
+    "provider" => "google"
+  } = params) do
+    auth = conn.assigns.ueberauth_auth
+    info = conn.assigns.ueberauth_auth.info
+    sign_in_user(conn, %{
+      "data" => %{
+        "type" => "auth",
+        "attributes" => %{
+          "token" => auth.credentials.token,
+          "email" => info.email,
+          "first_name" => info.first_name,
+          "last_name" => info.last_name,
+          "avatar" => info.image
+        }
+      }
+    })
   end
 
   def callback(%{assigns: %{ueberauth_failure: _fails}} = conn, _params) do
-    require IEx; IEx.pry
-    # Called when user denies the app to get the data from the oauth provider
+    # This callback is called when the user denies the app to get the
+    # data from the oauth provider
     conn
-      |> put_status(401)
-      |> render(ReelWeb.ErrorView, "401.json-api")
+    |> put_status(401)
+    |> render(ReelWeb.ErrorView, "401.json-api")
   end
 
-  def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-    require IEx; IEx.pry
-    case AuthUser.basic_info(auth) do
-      {:ok, user} ->
-        sign_in_user(conn, %{"user" => user})
-    end
-
-    case AuthUser.basic_info(auth) do
-      {:ok, user} ->
-        conn
-        |> render(ReelWeb.UserView, "show.json-api", %{data: user})
-      {:error} ->
-        conn
-        |> put_status(401)
-        |> render(ReelWeb.ErrorView, "401.json-api")
-    end
-  end
-
-  def sign_in_user(conn, %{"user" => user}) do
+  def sign_in_user(conn, %{
+    "data" => %{
+      "type" => "auth",
+      "attributes" => %{
+        "token" => token,
+        "email" => email,
+        "first_name" => first_name,
+        "last_name" => last_name,
+        "avatar" => avatar
+      }
+    }
+  }) do
     try do
+      # Attempt to retrieve exactly one user from the DB, whose
+      # email matches the one provided with the login request
       user = User
-      |> where(email: ^user.email)
+      |> where(email: ^email)
       |> Repo.one!
 
       cond do
@@ -53,9 +87,9 @@ defmodule ReelWeb.AuthController do
           # Encode a JWT
           { :ok, jwt, _ } = Guardian.encode_and_sign(user, :token)
 
-          auth_conn = Guardian.Plug.sign_in(conn, user)
+          auth_conn = Guardian.Plug.api_sign_in(conn, user)
           jwt = Guardian.Plug.current_token(auth_conn)
-          {:ok, claims} = Guardian.Plug.current_claims(auth_conn)
+          {:ok, claims} = Guardian.Plug.claims(auth_conn)
 
           auth_conn
           |> put_resp_header("authorization", "Bearer #{jwt}")
@@ -71,17 +105,41 @@ defmodule ReelWeb.AuthController do
       e ->
         IO.inspect e # Print error to the console for debugging
 
-        # Successful registration
-        sign_up_user(conn, %{"user" => user})
+        # Sign the user up
+        sign_up_user(conn, %{
+          "data" => %{
+            "type" => "auth",
+            "attributes" => %{
+              "token" => token,
+              "email" => email,
+              "first_name" => first_name,
+              "last_name" => last_name,
+              "avatar" => avatar
+            }
+          }
+        })
     end
   end
 
-  def sign_up_user(conn, %{"user" => user}) do
-    changeset = User.changeset %User{}, %{email: user.email,
-      avatar: user.avatar,
-      first_name: user.first_name,
-      last_name: user.last_name,
-      auth_provider: "google"}
+  def sign_up_user(conn, %{
+    "data" => %{
+      "type" => "auth",
+      "attributes" => %{
+        "token" => token,
+        "email" => email,
+        "first_name" => first_name,
+        "last_name" => last_name,
+        "avatar" => avatar
+      }
+    }
+  }) do
+    changeset = User.changeset %User{}, %{
+      email: email,
+      avatar: avatar,
+      first_name: first_name,
+      last_name: last_name,
+      auth_provider: "Google"
+    }
 
     case Repo.insert changeset do
       {:ok, user} ->
@@ -98,27 +156,9 @@ defmodule ReelWeb.AuthController do
     end
   end
 
-  def unauthenticated(conn, params) do
+  def unauthenticated(conn, _params) do
     conn
     |> put_status(401)
     |> render(ReelWeb.ErrorView, "401.json-api")
-  end
-
-  def unauthorized(conn, params) do
-    conn
-    |> put_status(403)
-    |> render(ReelWeb.ErrorView, "403.json-api")
-  end
-
-  def already_authenticated(conn, params) do
-    conn
-    |> put_status(200)
-    |> render(ReelWeb.ErrorView, "200.json-api")
-  end
-
-  def no_resource(conn, params) do
-    conn
-    |> put_status(404)
-    |> render(ReelWeb.ErrorView, "404.json-api")
   end
 end

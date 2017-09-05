@@ -73,7 +73,7 @@ defmodule Reel.Mixfile do
       {:ueberauth_facebook, "~> 0.7"},
       {:ueberauth_google, "~> 0.5"},
       {:ja_serializer, "~> 0.12"},
-      {:guardian, "~> 1.0-beta"},
+      {:guardian, "~> 0.14"}
     ]
   end
 
