@@ -20,6 +20,8 @@ defmodule ReelWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: ReelWeb
+      import Ecto.Query, only: [first: 1, where: 2]
+      alias Reel.Repo
       import Plug.Conn
       import ReelWeb.Router.Helpers
       import ReelWeb.Gettext
