@@ -3,6 +3,7 @@ defmodule ReelWeb.Schema.Types do
   Module where GraphQL types are declared.
   """
   use Absinthe.Schema.Notation
+  use Absinthe.Relay.Schema.Notation
 
   @desc """
   The `Time` scalar type represents time values provided in the ISOz
@@ -140,11 +141,21 @@ defmodule ReelWeb.Schema.Types do
     interface :medium
   end
 
+  connection node_type: :medium
+
   object :genre do
     field :name, :string
     field :tmdb_id, :integer
-    
-    field :media, list_of(:medium)
+
+    connection field :media, node_type: :medium do
+      resolve fn
+        pagination_args, %{source: genre} ->
+          Absinthe.Relay.Connection.from_list(
+            genre.media,
+            pagination_args
+          )
+      end
+    end
   end
 
 end

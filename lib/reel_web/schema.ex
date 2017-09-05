@@ -1,5 +1,6 @@
 defmodule ReelWeb.Schema do
   use Absinthe.Schema
+  use Absinthe.Relay.Schema
   import_types ReelWeb.Schema.Types
 
   query do
