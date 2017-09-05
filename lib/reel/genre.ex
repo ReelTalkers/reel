@@ -15,6 +15,6 @@ defmodule Reel.Genre do
   def changeset(%Genre{} = genre, attrs) do
     genre
     |> cast(attrs, [:name, :tmdb_id])
-    |> validate_required([:name, :tmdb_id])
+    |> validate_required([:name])
   end
 end

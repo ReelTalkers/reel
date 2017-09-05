@@ -1,5 +1,6 @@
 defmodule ReelWeb.Schema do
   use Absinthe.Schema
+  use Absinthe.Relay.Schema
   import_types ReelWeb.Schema.Types
 
   query do
@@ -17,6 +18,11 @@ defmodule ReelWeb.Schema do
 
     field :movies, list_of(:movie) do
       resolve &ReelWeb.MovieResolver.all/2
+    end
+
+    field :genres, list_of(:genre) do
+      arg :genres, list_of(:integer)
+      resolve &ReelWeb.GenreResolver.partial/2
     end
 
     # field :media, list_of(:medium) do
@@ -69,6 +75,12 @@ defmodule ReelWeb.Schema do
     field :create_group, type: :group do
       arg :name, non_null(:string)
       resolve &ReelWeb.GroupResolver.create/2
+    end
+
+    field :create_genre, type: :genre do
+      arg :name, non_null(:string)
+      arg :tmdb_id, :string
+      resolve &ReelWeb.GenreResolver.create/2
     end
 
     field :create_show, type: :show do
