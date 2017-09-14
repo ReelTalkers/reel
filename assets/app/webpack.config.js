@@ -5,7 +5,7 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    host: "reeltalk.student.cwru.edu",
+    host: "localhost",
     port: 8080,
     https: false
   },
