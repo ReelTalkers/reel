@@ -51,9 +51,9 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :reel, Reel.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "reel",
-  database: "reel_dev",
+  username: System.get_env("DB_USERNAME_DEV"),
+  password: System.get_env("DB_PASSWORD_DEV"),
+  database: System.get_env("DB_NAME_DEV"),
   hostname: "localhost",
   template: "template0",
   pool_size: 10

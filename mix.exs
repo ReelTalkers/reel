@@ -29,7 +29,23 @@ defmodule Reel.Mixfile do
   def application do
     [
       mod: {Reel.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe, :absinthe_plug]
+      extra_applications: applications(Mix.env)
+    ]
+  end
+
+  def applications(env) when env in [:test] do
+    applications(:default)
+  end
+
+  def applications(_) do
+    [
+      :logger,
+      :runtime_tools,
+      :absinthe,
+      :absinthe_plug,
+      :ueberauth,
+      :ueberauth_facebook,
+      :ueberauth_google,
     ]
   end
 
@@ -52,8 +68,13 @@ defmodule Reel.Mixfile do
       {:cowboy, "~> 1.0"},
       {:absinthe, "~> 1.3"},
       {:absinthe_plug, "~> 1.3"},
+      {:absinthe_relay, "~> 1.3.0"},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
-      {:absinthe_relay, "~> 1.3.0"}
+      {:ueberauth, "~> 0.4"},
+      {:ueberauth_facebook, "~> 0.7"},
+      {:ueberauth_google, "~> 0.5"},
+      {:ja_serializer, "~> 0.12"},
+      {:guardian, "~> 0.14"}
     ]
   end
 
