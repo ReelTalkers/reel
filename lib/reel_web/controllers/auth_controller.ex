@@ -29,7 +29,8 @@ defmodule ReelWeb.AuthController do
           "email" => info.email,
           "first_name" => info.first_name,
           "last_name" => info.last_name,
-          "avatar" => info.image
+          "avatar" => info.image,
+          "auth_provider" => "facebook"
         }
       }
     })
@@ -48,7 +49,8 @@ defmodule ReelWeb.AuthController do
           "email" => info.email,
           "first_name" => info.first_name,
           "last_name" => info.last_name,
-          "avatar" => info.image
+          "avatar" => info.image,
+          "auth_provider" => "google"
         }
       }
     })
@@ -103,22 +105,32 @@ defmodule ReelWeb.AuthController do
       end
     rescue
       e ->
-        IO.inspect e # Print error to the console for debugging
+        IO.inspect e
 
+      redirect conn, to: "/signup"
         # Sign the user up
-        sign_up_user(conn, %{
-          "data" => %{
-            "type" => "auth",
-            "attributes" => %{
-              "token" => token,
-              "email" => email,
-              "first_name" => first_name,
-              "last_name" => last_name,
-              "avatar" => avatar
-            }
-          }
-        })
+        # sign_up_user(conn, %{
+        #   "data" => %{
+        #     "type" => "auth",
+        #     "attributes" => %{
+        #       "token" => token,
+        #       "email" => email,
+        #       "first_name" => first_name,
+        #       "last_name" => last_name,
+        #       "avatar" => avatar
+        #     }
+        #   }
+        # })
     end
+  end
+
+  def signup(conn, _params)
+    render conn, "index.html"
+  end
+
+  def confirm_signup(conn, params)
+    require IEx; IEx.pry
+    sign_up_user(conn, params)
   end
 
   def sign_up_user(conn, %{
@@ -129,16 +141,20 @@ defmodule ReelWeb.AuthController do
         "email" => email,
         "first_name" => first_name,
         "last_name" => last_name,
-        "avatar" => avatar
+        "avatar" => avatar,
+        "username" => username,
+        "auth_provider" => auth_provider
       }
     }
   }) do
+    require IEx; IEx.pry
     changeset = User.changeset %User{}, %{
       email: email,
       avatar: avatar,
       first_name: first_name,
       last_name: last_name,
-      auth_provider: "Google"
+      username: username,
+      auth_provider: auth_provider
     }
 
     case Repo.insert changeset do

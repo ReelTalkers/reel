@@ -41,12 +41,14 @@ defmodule ReelWeb.Router do
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
     post "/:provider/callback", AuthController, :callback
+    post "/signup/confirm", AuthController, :confirm_signup
   end
 
   scope "/", ReelWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", AppController, :index
+    get "/signup", AuthController, :signup
   end
 
   scope "/" do

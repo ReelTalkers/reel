@@ -4,7 +4,7 @@ defmodule Reel.User do
   schema "users" do
     field :auth_provider, :string
     field :email, :string
-    field :facebook_id, :string
+    field :auth_provider_id, :string
     field :avatar, :string
     field :first_name, :string
     field :is_private, :boolean, default: false
@@ -27,8 +27,8 @@ defmodule Reel.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:username, :first_name, :last_name, :email, :facebook_id, :avatar, :is_private, :auth_provider])
-    |> validate_required([:username, :first_name, :last_name, :email, :facebook_id, :avatar, :is_private, :auth_provider])
+    |> cast(attrs, [:username, :first_name, :last_name, :email, :auth_provider_id, :avatar, :is_private, :auth_provider])
+    |> validate_required([:username, :first_name, :last_name, :email, :auth_provider_id, :avatar, :is_private, :auth_provider])
     |> unique_constraint(:email)
   end
 end
